@@ -1,0 +1,44 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "censo_historico",
+  "tabla_fuente": "Summary of Census Population (By administrative district/sex/age)",
+  "tbl_id": "DT_1IN0001",
+  "rol": "contexto",
+  "uso": "Censos 1925-2010 (contexto de largo plazo de la estructura por edad)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1IN0001&language=en",
+    "archivo": "101_DT_1IN0001_20261002095908.xls",
+    "lector": "xml2003_kosis"
+  },
+  "fecha_extraccion": "2026-10-02",
+  "fecha_ingesta": "2026-10-05T22:52:20-05:00",
+  "archivo_crudo": "101_DT_1IN0001_20261002095908.xls",
+  "sha256_crudo": "886ae1f37ea9ed917ff34534f2703adf58f14f180ff2a894476b93d24747425f",
+  "version": "886ae1f37ea9",
+  "filas": 2632,
+  "columnas": 22,
+  "encabezados": [
+    "By administrative divisions",
+    "By age",
+    "Item",
+    "UNIT",
+    "1925 Year",
+    "1930 Year",
+    "1935 Year",
+    "1940 Year",
+    "1944 Year",
+    "1949 Year",
+    "1955 Year",
+    "1960 Year",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {
+    "titulo": "○ Summary of Census Population(By administrative district/sex/age) []",
+    "Table ID": "DT_1IN0001",
+    "Table Name": "Summary of Census Population(By administrative district/sex/age)",
+    "Term": "null",
+    "Source": "KOSIS(Source: Ministry of Data and Statistics, Population Census), 2026.10.02 09:59",
+    "Table URL": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1IN0001&language=en&conn_path=I3"
+  }
+}

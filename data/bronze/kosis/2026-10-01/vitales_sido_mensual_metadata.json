@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "vitales_sido_mensual",
+  "tabla_fuente": "Vital statistics(number) by Month for Provinces",
+  "tbl_id": "DT_1B8000G",
+  "rol": "contraste",
+  "uso": "Contraste de TFR regional (2 decimales) y de nacimientos; columnas mensuales fuera de alcance",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000G&language=en",
+    "archivo": "estadisticas_vitales_sido_2000_2025.csv",
+    "lector": "csv_doble"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "archivo_crudo": "estadisticas_vitales_sido_2000_2025.csv",
+  "sha256_crudo": "6f0f5d10cb72824a3f807c2e8a1ba808a3422722a6ded1ee164dd4a5a56d3388",
+  "version": "6f0f5d10cb72",
+  "filas": 19,
+  "columnas": 424,
+  "encabezados": [
+    "By administrative divisions",
+    "2026.05 p) | Live births(persons)",
+    "2026.05 p) | Crude Birth Rate(per 1000 population)",
+    "2026.05 p) | Deaths(persons)",
+    "2026.05 p) | Crude Dearh Rate(per 1000 population)",
+    "2026.05 p) | Natural increase(persons)",
+    "2026.05 p) | Natural increase rate(per 1000 population)",
+    "2026.05 p) | Marriages(cases)",
+    "2026.05 p) | Crude Marrige Rate(per 1000 population)",
+    "2026.05 p) | Divorces(cases)",
+    "2026.05 p) | Crude Divorce Rate(per 1000 population)",
+    "2026.05 p) | Total Fertility Rate(persons)",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

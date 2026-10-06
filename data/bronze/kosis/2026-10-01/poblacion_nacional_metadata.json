@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "poblacion_nacional",
+  "tabla_fuente": "Projected Population by Age (Korea) - escenario medio",
+  "tbl_id": "DT_1BPA001",
+  "rol": "maestra",
+  "uso": "Población por sexo y edad 2000-2072 (2000-2022 estimada; 2023+ proyección medio)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1BPA001&language=en",
+    "archivo": "poblacion_nacional_edad_sexo_2000_2072_medio.csv",
+    "lector": "csv_ancho"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "archivo_crudo": "poblacion_nacional_edad_sexo_2000_2072_medio.csv",
+  "sha256_crudo": "5a3ab55adea17c3d9709be56194762530029effa6c3ec845cb1253be0e13a4b4",
+  "version": "5a3ab55adea1",
+  "filas": 69,
+  "columnas": 76,
+  "encabezados": [
+    "가정별",
+    "성별",
+    "연령별",
+    "2072",
+    "2071",
+    "2070",
+    "2069",
+    "2068",
+    "2067",
+    "2066",
+    "2065",
+    "2064",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

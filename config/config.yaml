@@ -1,0 +1,316 @@
+# =====================================================================================
+# Proyecto ETL 2026 - Grupo 6 - Corea del Sur
+# Configuración única del pipeline: autores, rutas, base de datos, umbrales de calidad
+# y catálogo de fuentes (qué se extrae, cómo, y con qué rol).
+# Las credenciales NUNCA van aquí: se leen de .env (ver .env.example).
+# =====================================================================================
+
+proyecto:
+  nombre: "Natalidad, envejecimiento y fuerza laboral en Corea del Sur"
+  pregunta_central: >
+    ¿Cómo impactará la disminución de la natalidad y el envejecimiento poblacional
+    en la disponibilidad futura de la fuerza laboral en Corea del Sur?
+  universidad: Universidad Autónoma de Occidente (Cali)
+  programa: Maestría en Inteligencia Artificial y Ciencia de Datos
+  curso: ETL
+  grupo: 6
+  version_pipeline: "2.0.0"
+  autores:
+    - Angie Tatiana Rodríguez Duque
+    - Karin Stephany Parra Rosero
+    - Maicol Andrés Narváez Rincón
+    - Miguel Ángel Méndez Rodríguez
+
+rutas:
+  landing: data/landing        # descargas manuales tal como salen del portal (bandeja de entrada)
+  bronze: data/bronze          # copia inmutable + metadata por fuente y fecha de extracción
+  silver: data/silver
+  gold: data/gold
+  mappings: config/mappings
+  logs: logs
+  figuras: docs/figuras
+
+base_datos:
+  # motor por defecto: sqlite (archivo local verificable). Para PostgreSQL definir DB_URL en .env, p. ej.
+  #   DB_URL=postgresql+psycopg://postgres:clave@localhost:5432/etl_corea
+  sqlite_path: database/etl_corea.sqlite
+  # En PostgreSQL cada capa es un esquema; en SQLite (sin esquemas) se usa prefijo: bronze_, silver_, gold_, ctl_.
+  capas: [ctl, bronze, silver, gold]
+
+periodo:
+  historico: {inicio: 2000, fin: 2025}
+  proyeccion: {inicio: 2026, fin: 2072}
+  anio_base_escenarios: 2025       # último año con EAPS observada
+
+calidad:
+  # Umbrales de los KPIs de calidad (KR2/KR3). Se recalibran tras cada perfilamiento.
+  umbral_registros_validos_pct: 98.0
+  umbral_rechazo_max_pct: 2.0
+  umbral_completitud_nacional_pct: 95.0
+  umbral_completitud_regional_pct: 90.0
+  umbral_ejecuciones_exitosas_pct: 95.0
+  tolerancia_conciliacion_pct: 3.0       # maestra vs contraste
+  objetivo_conciliacion_pct: 90.0        # % de pares dentro de tolerancia
+  tolerancia_suma_partes_pct: 0.5        # suma si-do vs nacional; suma edades vs total; H+M vs T
+  tolerancia_tasa_recalculada_pp: 0.15   # tasa publicada (1 decimal) vs recalculada desde niveles redondeados
+
+logging:
+  nivel: INFO
+  archivo: logs/pipeline.log
+
+orquestacion:
+  # scheduler.py (librería schedule): ejecución periódica del pipeline completo
+  frecuencia: semanal
+  dia: monday
+  hora: "06:00"
+
+extraccion:
+  reintentos: 4
+  espera_reintento_s: 5
+  timeout_s: 120
+  user_agent: "Mozilla/5.0 (ProyectoETL academico UAO)"   # OECD responde 403 sin User-Agent
+
+# -------------------------------------------------------------------------------------
+# KOSIS / KOSTAT  (descarga manual: la OpenAPI de KOSIS está restringida a residentes de Corea)
+#   patron: archivos en data/landing/kosis que pertenecen al dataset (se admiten varios: se deduplican por contenido)
+#   lector: csv_ancho | csv_doble | xlsx_kosis | xml2003_kosis
+#   fecha_descarga: sólo para archivos cuyo nombre/metadata no la incluyen (descargas del repo del grupo)
+#   rol: maestra | contraste | complementaria | contexto
+# -------------------------------------------------------------------------------------
+kosis:
+  url_tabla: "https://kosis.kr/statHtml/statHtml.do?orgId={org_id}&tblId={tbl_id}&language=en"
+  url_portal: https://kosis.kr/eng/
+  datasets:
+    vitales_nacional:
+      patron: ["Vital_Statistics_of_Korea_*.xlsx", "Vital_Statistics_of_Korea_*.xls"]
+      tabla_kosis: Vital Statistics of Korea
+      org_id: "101"
+      tbl_id: DT_1B8000F
+      lector: xlsx_kosis
+      dimensiones: [item]
+      rol: maestra
+      uso: Nacimientos, defunciones, TFR, esperanza de vida, mortalidad infantil y matrimonios nacionales
+    vitales_nacional_repo:
+      patron: ["estadisticas_vitales_nacional_*.csv"]
+      tabla_kosis: Vital Statistics of Korea
+      org_id: "101"
+      tbl_id: DT_1B8000F
+      lector: csv_ancho
+      encoding: utf-8-sig
+      dimensiones: [item]
+      fecha_descarga: "2026-10-01"
+      rol: contraste
+      uso: Versión previa (2000-2025) de la misma tabla, descargada por el equipo; control de revisiones
+    vitales_sido:
+      patron: ["Vital_statistics_for_Provinces__Number_and_Rate__*.xlsx"]
+      tabla_kosis: Vital statistics for Provinces (Number and Rate)
+      org_id: "101"
+      tbl_id: DT_1B8000H
+      lector: xlsx_kosis
+      dimensiones: [territorio]
+      rol: maestra
+      uso: Nacimientos, defunciones, tasas brutas y matrimonios por si-do (anual)
+    vitales_sigungu:
+      patron: ["Vital_statistics_for_city__county__and_district_*.xlsx"]
+      tabla_kosis: Vital statistics for city, county, and district (Number and Rate)
+      org_id: "101"
+      tbl_id: DT_1B8000I
+      lector: xlsx_kosis
+      dimensiones: [territorio]
+      rol: contraste
+      uso: Contraste de vitales_sido (la descarga sólo trae el nivel si-do)
+    vitales_sido_mensual:
+      patron: ["estadisticas_vitales_sido_*.csv"]
+      tabla_kosis: Vital statistics(number) by Month for Provinces
+      org_id: "101"
+      tbl_id: DT_1B8000G
+      lector: csv_doble
+      encoding: utf-8-sig
+      dimensiones: [territorio]
+      fecha_descarga: "2026-10-01"
+      rol: contraste
+      uso: Contraste de TFR regional (2 decimales) y de nacimientos; columnas mensuales fuera de alcance
+    nacimientos_sexo:
+      patron: ["Live_Births_and_Deaths_by_administrative_districts_*.xlsx", "Live_Births_and_Deaths_by_administrative_districts_*.xls"]
+      tabla_kosis: Live Births and Deaths by administrative districts
+      org_id: "101"
+      tbl_id: DT_1B8000K
+      lector: xlsx_kosis
+      dimensiones: [territorio, sexo]
+      rol: complementaria
+      uso: Nacimientos y defunciones por sexo y si-do (2004-2025)
+    tfr_sido:
+      patron: ["tfr_sido_*.csv"]
+      tabla_kosis: Total Fertility Rates and Age-Specific Fertility Rates for city, county, and district
+      org_id: "101"
+      tbl_id: DT_1B81A17
+      lector: csv_doble
+      encoding: utf-8-sig
+      dimensiones: [territorio]
+      fecha_descarga: "2026-10-01"
+      rol: maestra
+      uso: TFR (3 decimales) y tasas específicas de fecundidad por edad de la madre, por si-do
+    eaps_sido:
+      patron: ["eaps_sido_anual_*.csv"]
+      tabla_kosis: Summary of economically active population by city/province
+      org_id: "101"
+      tbl_id: DT_1DA7004S
+      lector: csv_doble
+      encoding: utf-8-sig
+      dimensiones: [territorio]
+      fecha_descarga: "2026-10-01"
+      rol: maestra
+      uso: Mercado laboral por si-do (promedio anual publicado; miles de personas y %)
+    eaps_sexo_edad:
+      patron: ["eaps_nacional_sexo_edad_*.csv"]
+      tabla_kosis: Summary of economically active pop. by gender/ age group
+      org_id: "101"
+      tbl_id: DT_1DA7012S
+      lector: csv_doble
+      encoding: utf-8-sig
+      dimensiones: [sexo, edad]
+      fecha_descarga: "2026-10-01"
+      rol: maestra
+      uso: Mercado laboral nacional por sexo y grupo de edad (base de los escenarios de fuerza laboral)
+    poblacion_nacional:
+      patron: ["poblacion_nacional_edad_sexo_*_medio.csv"]
+      tabla_kosis: Projected Population by Age (Korea) - escenario medio
+      org_id: "101"
+      tbl_id: DT_1BPA001
+      lector: csv_ancho
+      encoding: utf-8-sig
+      dimensiones: [escenario, sexo, edad]
+      fecha_descarga: "2026-10-01"
+      rol: maestra
+      uso: Población por sexo y edad 2000-2072 (2000-2022 estimada; 2023+ proyección medio)
+    poblacion_sido:
+      patron: ["poblacion_sido_edad_sexo_*_medio.csv"]
+      tabla_kosis: Projected Population by Age (Province) - escenario medio
+      org_id: "101"
+      tbl_id: DT_1BPB001
+      lector: csv_ancho
+      encoding: utf-8-sig
+      dimensiones: [escenario, territorio, sexo, edad, item, unidad]
+      fecha_descarga: "2026-10-01"
+      rol: maestra
+      uso: Población por si-do, sexo y edad 2000-2052 (2000-2022 estimada; 2023+ proyección medio)
+    proyeccion_escenarios:
+      patron: ["proyeccion_nacional_edad_sexo_por_escenario_*.csv"]
+      tabla_kosis: Projected population by scenario, sex and age (Korea)
+      org_id: "101"
+      tbl_id: null          # el tblId no quedó registrado al descargar; se documenta como limitación
+      lector: csv_ancho
+      encoding: cp949
+      dimensiones: [escenario, sexo, edad, item, unidad]
+      fecha_descarga: "2026-10-01"
+      rol: maestra
+      uso: 28 escenarios alternativos de KOSTAT 2022-2072 (fecundidad, esperanza de vida, migración)
+    proyeccion_resumen:
+      patron: ["proyeccion_nacional_resumen_*.csv"]
+      tabla_kosis: Population Projections and Summary Indicators (Korea)
+      org_id: "101"
+      tbl_id: DT_1BPA002
+      lector: csv_ancho
+      encoding: utf-8-sig
+      dimensiones: [escenario, item]
+      fecha_descarga: "2026-09-23"
+      rol: contraste
+      uso: Indicadores oficiales de dependencia/envejecimiento para validar el cálculo propio
+    censo_registros:
+      patron: ["101_DT_1IN1502_*.xls"]
+      tabla_kosis: Population, Households and Housing Units (Register-based Census)
+      org_id: "101"
+      tbl_id: DT_1IN1502
+      lector: xml2003_kosis
+      dimensiones: [territorio, item, unidad]
+      rol: complementaria
+      uso: Población total y extranjera observada (censo de registros 2016-2025) por si-do
+    censo_historico:
+      patron: ["101_DT_1IN0001_*.xls"]
+      tabla_kosis: Summary of Census Population (By administrative district/sex/age)
+      org_id: "101"
+      tbl_id: DT_1IN0001
+      lector: xml2003_kosis
+      dimensiones: [territorio, edad, item, unidad]
+      rol: contexto
+      uso: Censos 1925-2010 (contexto de largo plazo de la estructura por edad)
+
+# -------------------------------------------------------------------------------------
+# World Bank WDI (API v2, sin credenciales)
+# -------------------------------------------------------------------------------------
+worldbank:
+  base_url: https://api.worldbank.org/v2
+  paises: [KOR, JPN, USA, DEU, ITA, ESP, FRA, CHN, OED]
+  per_page: 20000
+  datasets:
+    SP.DYN.TFRT.IN:    {indicador: TFR,                rol: contraste_y_comparacion}
+    SP.POP.65UP.TO.ZS: {indicador: PROP_65MAS,         rol: contraste_y_comparacion}
+    SP.POP.1564.TO:    {indicador: POB_15_64,          rol: contraste_y_comparacion}
+    SP.POP.TOTL:       {indicador: POB_TOTAL,          rol: contraste_y_comparacion}
+    SP.POP.0014.TO:    {indicador: POB_0_14,           rol: contraste_y_comparacion}
+    SP.POP.65UP.TO:    {indicador: POB_65MAS,          rol: contraste_y_comparacion}
+    SP.POP.DPND.OL:    {indicador: DEP_VEJEZ,          rol: contraste_y_comparacion}
+    SL.TLF.CACT.ZS:    {indicador: TASA_PARTICIPACION, rol: comparacion, nota: "Estimación modelada OIT, 15+; no comparable 1:1 con EAPS"}
+    SP.DYN.LE00.IN:    {indicador: ESPERANZA_VIDA,     rol: contraste_y_comparacion}
+    SL.GDP.PCAP.EM.KD: {indicador: PIB_POR_OCUPADO,    rol: comparacion, nota: "USD PPA constantes 2021, por ocupado (no por hora)"}
+
+# -------------------------------------------------------------------------------------
+# OECD SDMX (sin credenciales, requiere User-Agent)
+# -------------------------------------------------------------------------------------
+oecd:
+  base_url: https://sdmx.oecd.org/public/rest
+  formato: csvfilewithlabels
+  paises: [KOR, JPN, USA, DEU, ITA, ESP, FRA]
+  datasets:
+    productividad:
+      dataflow: OECD.SDD.TPS,DSD_PDB@DF_PDB,2.0
+      clave: "{paises}.A.GDPHRS._T.USD_PPP_H.LR..."
+      indicador: PIB_HORA
+      rol: maestra
+      nota: PIB por hora trabajada, USD PPA, volumen encadenado (precios constantes)
+    fuerza_laboral:
+      dataflow: OECD.SDD.TPS,DSD_ALFS@DF_SUMTAB,1.0
+      clave: "{paises}.LF+EMP+UNE_LF.......A"
+      rol: contraste
+      nota: Niveles en miles (UNIT_MULT=3); tasa de desempleo en %
+    fecundidad:
+      dataflow: OECD.CFE.EDS,DSD_REG_DEMO@DF_FERTILITY,2.4
+      clave: "A.CTRY.{paises}..FERT_RATIO+LIVE_BIRTHS..."
+      rol: contraste
+      nota: TFR (AGE=_T) y nacimientos (UNIT_MEASURE=BR) a nivel país
+
+# -------------------------------------------------------------------------------------
+# UN World Population Prospects 2024 (requiere token gratuito UNWPP_API_TOKEN en .env).
+# Fuente de contraste OPCIONAL: si no hay token la extracción queda 'omitida' (no es un fallo técnico).
+# -------------------------------------------------------------------------------------
+unwpp:
+  base_url: https://population.un.org/dataportalapi/api/v1
+  token_env: UNWPP_API_TOKEN
+  datasets:
+    poblacion_edad_sexo: {indicator_id: 46, location_code: 410, inicio: 2000, fin: 2072, rol: contraste}
+
+# -------------------------------------------------------------------------------------
+# Escenarios propios de fuerza laboral (inferencia del equipo; NO son pronósticos)
+# Fuerza laboral potencial(t, e, s) = Σ_edad Población_proyectada_KOSTAT(t, e, s, edad) × TP(s, edad, supuesto)
+# -------------------------------------------------------------------------------------
+escenarios_fuerza_laboral:
+  escenarios_poblacion: [medio, fecundidad_baja, fecundidad_alta, migracion_cero, envejecimiento_rapido, envejecimiento_lento]
+  supuestos:
+    A_constante:
+      nombre: "A · Participación constante"
+      descripcion: Tasas de participación por sexo y grupo de edad fijas en el valor observado de 2025.
+    B_tendencia:
+      nombre: "B · Tendencia 2015-2025 amortiguada"
+      descripcion: >
+        Se extrapola la pendiente lineal 2015-2025 de cada tasa (sexo × edad) durante 10 años (hasta 2035)
+        y luego se mantiene constante. Tope: [0 %, 95 %] y ±10 pp respecto a 2025.
+      anios_tendencia: [2015, 2025]
+      horizonte_tendencia: 2035
+      tope_pp: 10
+    C_brecha_genero:
+      nombre: "C · Cierre del 50 % de la brecha de género"
+      descripcion: >
+        La tasa femenina de cada grupo de edad cierra linealmente el 50 % de su brecha con la masculina
+        entre 2025 y 2050 y luego se mantiene; la masculina queda constante (supuesto A).
+      fraccion_cierre: 0.5
+      anio_meta: 2050

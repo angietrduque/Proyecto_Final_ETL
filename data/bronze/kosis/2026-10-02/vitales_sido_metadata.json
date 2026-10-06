@@ -1,0 +1,44 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "vitales_sido",
+  "tabla_fuente": "Vital statistics for Provinces (Number and Rate)",
+  "tbl_id": "DT_1B8000H",
+  "rol": "maestra",
+  "uso": "Nacimientos, defunciones, tasas brutas y matrimonios por si-do (anual)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000H&language=en",
+    "archivo": "Vital_statistics_for_Provinces__Number_and_Rate__20261002101214.xlsx",
+    "lector": "xlsx_kosis"
+  },
+  "fecha_extraccion": "2026-10-02",
+  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "archivo_crudo": "Vital_statistics_for_Provinces__Number_and_Rate__20261002101214.xlsx",
+  "sha256_crudo": "8b9281f3c3c2c9ec0cebda351aa9dc1a339fd4878bc8ee852eba5a22a1c693f3",
+  "version": "8b9281f3c3c2",
+  "filas": 19,
+  "columnas": 350,
+  "encabezados": [
+    "By administrative divisions",
+    "1990 | Live births (persons)",
+    "1990 | Crude birth rate(per 1,000 population)",
+    "1990 | Deaths (persons)",
+    "1990 | Crude death rate(per 1,000 population)",
+    "1990 | Natural increase (persons)",
+    "1990 | Natural increase rate(per 1,000 population)",
+    "1990 | Marriages (cases)",
+    "1990 | Crude marriage rate(per 1,000 population)",
+    "1990 | Divorces (cases)",
+    "1990 | Crude divorce rate(per 1,000 population)",
+    "1991 | Live births (persons)",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {
+    "Table ID": "DT_1B8000H",
+    "Table Name": "Vital statistics for Provinces (Number and Rate)",
+    "Search Period": "[Annual] 1990~2025",
+    "Source": "Source: Ministry of Data and Statistics, Vital Statistics",
+    "Download Date": "2026.10.02 10:12",
+    "Table URL": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000H&language=en&conn_path=I3"
+  }
+}

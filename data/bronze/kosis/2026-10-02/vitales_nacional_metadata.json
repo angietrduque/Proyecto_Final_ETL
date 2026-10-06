@@ -1,0 +1,44 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "vitales_nacional",
+  "tabla_fuente": "Vital Statistics of Korea",
+  "tbl_id": "DT_1B8000F",
+  "rol": "maestra",
+  "uso": "Nacimientos, defunciones, TFR, esperanza de vida, mortalidad infantil y matrimonios nacionales",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000F&language=en",
+    "archivo": "Vital_Statistics_of_Korea_20261002100432.xlsx",
+    "lector": "xlsx_kosis"
+  },
+  "fecha_extraccion": "2026-10-02",
+  "fecha_ingesta": "2026-10-05T22:52:17-05:00",
+  "archivo_crudo": "Vital_Statistics_of_Korea_20261002100432.xlsx",
+  "sha256_crudo": "7db493a6115822f1b44f6996fd9ea33c80a530a6722a2886d9b5909a56dbcc42",
+  "version": "7db493a61158",
+  "filas": 16,
+  "columnas": 57,
+  "encabezados": [
+    "By items",
+    "1970",
+    "1971",
+    "1972",
+    "1973",
+    "1974",
+    "1975",
+    "1976",
+    "1977",
+    "1978",
+    "1979",
+    "1980",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {
+    "Table ID": "DT_1B8000F",
+    "Table Name": "Vital Statistics of Korea",
+    "Search Period": "[Annual] 1970~2025",
+    "Source": "Source: Ministry of Data and Statistics, Vital Statistics",
+    "Download Date": "2026.10.02 10:04",
+    "Table URL": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000F&language=en&conn_path=I3"
+  }
+}

@@ -1,0 +1,28 @@
+cod_territorio,nombre_es,nombre_en,nombre_ko,tipo,region_macro,cod_oecd_tl3,iso3,vigente_desde,orden,observacion
+00,Corea del Sur (nacional),South Korea,전국,nacional,Nacional,,KOR,,0,Total nacional
+11,Seúl,Seoul,서울특별시,sido,Capital,KR011,,,1,
+21,Busan,Busan,부산광역시,sido,Sudeste,KR021,,1963,2,Ciudad metropolitana desde 1963 (antes parte de Gyeongsangnam-do)
+22,Daegu,Daegu,대구광역시,sido,Sudeste,KR022,,1981,3,Ciudad metropolitana desde 1981
+23,Incheon,Incheon,인천광역시,sido,Capital,KR012,,1981,4,Ciudad metropolitana desde 1981
+24,Gwangju,Gwangju,광주광역시,sido,Suroeste,KR031,,1986,5,Ciudad metropolitana desde 1986
+25,Daejeon,Daejeon,대전광역시,sido,Centro,KR041,,1989,6,Ciudad metropolitana desde 1989
+26,Ulsan,Ulsan,울산광역시,sido,Sudeste,KR023,,1997,7,Ciudad metropolitana desde 1997 (antes parte de Gyeongsangnam-do)
+29,Sejong,Sejong,세종특별자치시,sido,Centro,KR054,,2012,8,Si-do independiente desde 2012 (antes parte de Chungcheongnam-do); EAPS desde 2017
+31,Gyeonggi-do,Gyeonggi,경기도,sido,Capital,KR013,,,9,
+32,Gangwon,Gangwon,강원특별자치도,sido,Este,KR051,,,10,Renombrado Gangwon-do -> Gangwon State (2023)
+33,Chungcheongbuk-do,North Chungcheong,충청북도,sido,Centro,KR042,,,11,
+34,Chungcheongnam-do,South Chungcheong,충청남도,sido,Centro,KR043,,,12,Desde 2012 excluye Sejong
+35,Jeonbuk,Jeonbuk,전북특별자치도,sido,Suroeste,KR032,,,13,Renombrado Jeollabuk-do -> Jeonbuk State (2024)
+36,Jeollanam-do,South Jeolla,전라남도,sido,Suroeste,KR033,,,14,
+37,Gyeongsangbuk-do,North Gyeongsang,경상북도,sido,Sudeste,KR052,,,15,
+38,Gyeongsangnam-do,South Gyeongsang,경상남도,sido,Sudeste,KR053,,,16,
+39,Jeju,Jeju,제주특별자치도,sido,Isla,KR071,,,17,
+CNSJ,Chungnam + Sejong,South Chungcheong + Sejong,충남+세종,agregado,Centro,,,,18,Agregado construido en el pipeline (34 + 29) para series comparables 2000-2025
+JPN,Japón,Japan,,pais,Internacional,,JPN,,101,Comparación internacional
+USA,Estados Unidos,United States,,pais,Internacional,,USA,,102,Comparación internacional
+DEU,Alemania,Germany,,pais,Internacional,,DEU,,103,Comparación internacional
+ITA,Italia,Italy,,pais,Internacional,,ITA,,104,Comparación internacional
+ESP,España,Spain,,pais,Internacional,,ESP,,105,Comparación internacional
+FRA,Francia,France,,pais,Internacional,,FRA,,106,Comparación internacional
+CHN,China,China,,pais,Internacional,,CHN,,107,Comparación internacional (sólo World Bank)
+OED,Miembros OCDE,OECD members,,agregado_int,Internacional,,OED,,108,Agregado del World Bank

@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "tfr_sido",
+  "tabla_fuente": "Total Fertility Rates and Age-Specific Fertility Rates for city, county, and district",
+  "tbl_id": "DT_1B81A17",
+  "rol": "maestra",
+  "uso": "TFR (3 decimales) y tasas específicas de fecundidad por edad de la madre, por si-do",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B81A17&language=en",
+    "archivo": "tfr_sido_2000_2025.csv",
+    "lector": "csv_doble"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "archivo_crudo": "tfr_sido_2000_2025.csv",
+  "sha256_crudo": "aec2bce67b72d2378051f4ce3b0756eecc586a3721d47ce2b13ce748ed73049b",
+  "version": "aec2bce67b72",
+  "filas": 18,
+  "columnas": 209,
+  "encabezados": [
+    "By si(city), gun(county) and gu(borough)",
+    "2000 | Total Fertility Rate",
+    "2000 | Age-specific fertility rate:15-19",
+    "2000 | 20-24 Years old",
+    "2000 | 25-29 Years old",
+    "2000 | 30-34 Years old",
+    "2000 | 35-39 Years old",
+    "2000 | 40-44 Years old",
+    "2000 | 45-49 Years old",
+    "2001 | Total Fertility Rate",
+    "2001 | Age-specific fertility rate:15-19",
+    "2001 | 20-24 Years old",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

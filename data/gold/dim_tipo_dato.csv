@@ -1,0 +1,7 @@
+﻿tipo_dato,descripcion,orden
+observado,"Dato publicado por la fuente (registro administrativo, encuesta o censo)",1
+estimado,Estimación oficial de población de KOSTAT (hasta el año base 2022),2
+calculado,Indicador derivado por el pipeline con fórmula documentada,3
+proyeccion_oficial,Proyección oficial KOSTAT 2022-2072 integrada sin modificar,4
+escenario_propio,Ejercicio contable del equipo con supuestos explícitos; no es un pronóstico,5
+inferencia_propia,Índice compuesto del equipo con ponderaciones declaradas,6

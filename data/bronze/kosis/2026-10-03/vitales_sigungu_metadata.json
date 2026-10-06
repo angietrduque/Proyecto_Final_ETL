@@ -1,0 +1,44 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "vitales_sigungu",
+  "tabla_fuente": "Vital statistics for city, county, and district (Number and Rate)",
+  "tbl_id": "DT_1B8000I",
+  "rol": "contraste",
+  "uso": "Contraste de vitales_sido (la descarga sólo trae el nivel si-do)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000I&language=en",
+    "archivo": "Vital_statistics_for_city__county__and_district__Number_and_Rate__20261003094229.xlsx",
+    "lector": "xlsx_kosis"
+  },
+  "fecha_extraccion": "2026-10-03",
+  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "archivo_crudo": "Vital_statistics_for_city__county__and_district__Number_and_Rate__20261003094229.xlsx",
+  "sha256_crudo": "1df5e0bb935d352f6cec3eb36c02dcf30322713ab7432e66c517b17d044bc487",
+  "version": "1df5e0bb935d",
+  "filas": 19,
+  "columnas": 261,
+  "encabezados": [
+    "By administrative divisions",
+    "2000 | Live births (persons)",
+    "2000 | Crude birth rate(per 1,000 population)",
+    "2000 | Deaths (persons)",
+    "2000 | Crude death rate(per 1,000 population)",
+    "2000 | Natural increase (persons)",
+    "2000 | Natural increase rate(per 1,000 population)",
+    "2000 | Marriages (cases)",
+    "2000 | Crude marriage rate(per 1,000 population)",
+    "2000 | Divorces (cases)",
+    "2000 | Crude divorce rate(per 1,000 population)",
+    "2001 | Live births (persons)",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {
+    "Table ID": "DT_1B8000I",
+    "Table Name": "Vital statistics for city, county, and district (Number and Rate)",
+    "Search Period": "[Annual] 2000~2025",
+    "Source": "Source: Ministry of Data and Statistics, Vital Statistics",
+    "Download Date": "2026.10.03 09:42",
+    "Table URL": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000I&language=en&conn_path=I3"
+  }
+}

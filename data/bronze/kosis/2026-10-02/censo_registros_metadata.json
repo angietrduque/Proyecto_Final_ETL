@@ -1,0 +1,44 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "censo_registros",
+  "tabla_fuente": "Population, Households and Housing Units (Register-based Census)",
+  "tbl_id": "DT_1IN1502",
+  "rol": "complementaria",
+  "uso": "Población total y extranjera observada (censo de registros 2016-2025) por si-do",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1IN1502&language=en",
+    "archivo": "101_DT_1IN1502_20261002094734.xls",
+    "lector": "xml2003_kosis"
+  },
+  "fecha_extraccion": "2026-10-02",
+  "fecha_ingesta": "2026-10-05T22:52:20-05:00",
+  "archivo_crudo": "101_DT_1IN1502_20261002094734.xls",
+  "sha256_crudo": "ada83e35dee8ddecce2fc35a93073fe6276de053afe276645659d1c97a73619b",
+  "version": "ada83e35dee8",
+  "filas": 6580,
+  "columnas": 13,
+  "encabezados": [
+    "By administrative divisions(eup, myeon, dong)",
+    "Item",
+    "UNIT",
+    "2016 Year",
+    "2017 Year",
+    "2018 Year",
+    "2019 Year",
+    "2020 Year",
+    "2021 Year",
+    "2022 Year",
+    "2023 Year",
+    "2024 Year",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {
+    "titulo": "○ Population, Households and Housing Units []",
+    "Table ID": "DT_1IN1502",
+    "Table Name": "Population, Households and Housing Units",
+    "Term": "null",
+    "Source": "KOSIS(Source: Ministry of Data and Statistics, Population Census), 2026.10.02 09:47",
+    "Table URL": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1IN1502&language=en&conn_path=I3"
+  }
+}

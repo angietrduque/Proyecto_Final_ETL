@@ -1,0 +1,30 @@
+# Credenciales
+.env
+
+# Entorno
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Datos generados (se reconstruyen con `python main.py`)
+data/bronze/worldbank/
+data/bronze/oecd/
+data/bronze/unwpp/
+data/silver/
+data/gold/*.parquet
+data/ctl/
+database/
+logs/*.log
+logs/*.txt
+
+# Se versionan a propósito:
+#   data/landing/kosis/   descargas manuales de KOSIS (su OpenAPI está restringida a residentes de Corea;
+#                         sin estos archivos nadie podría reproducir la ingesta)
+#   data/bronze/kosis/    copia inmutable + metadata de esas descargas
+#   data/gold/*.csv       datasets consolidados y dimensiones para Power BI
+
+# Power BI
+*.pbix.bak

@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "eaps_sexo_edad",
+  "tabla_fuente": "Summary of economically active pop. by gender/ age group",
+  "tbl_id": "DT_1DA7012S",
+  "rol": "maestra",
+  "uso": "Mercado laboral nacional por sexo y grupo de edad (base de los escenarios de fuerza laboral)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1DA7012S&language=en",
+    "archivo": "eaps_nacional_sexo_edad_2000_2025.csv",
+    "lector": "csv_doble"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "archivo_crudo": "eaps_nacional_sexo_edad_2000_2025.csv",
+  "sha256_crudo": "f5f97a6941b1b0751de647aa1604eebb71bbdc02e11c7f36d794e6b4acac8005",
+  "version": "f5f97a6941b1",
+  "filas": 30,
+  "columnas": 234,
+  "encabezados": [
+    "By gender",
+    "By age group",
+    "2026.06 | Population 15 years old and over (Thousand Person)",
+    "2026.06 | Economically active population (Thousand Person)",
+    "2026.06 | Employed persons (Thousand Person)",
+    "2026.06 | Unemployed persons (Thousand Person)",
+    "2026.06 | Economically inactive population (Thousand Person)",
+    "2026.06 | Labor Force Participation rate (%)",
+    "2026.06 | Unemployment rate (%)",
+    "2026.06 | Employment to population ratio (%)",
+    "2026.07 | Population 15 years old and over (Thousand Person)",
+    "2026.07 | Economically active population (Thousand Person)",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

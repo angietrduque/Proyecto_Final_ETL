@@ -1,0 +1,45 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "nacimientos_sexo",
+  "tabla_fuente": "Live Births and Deaths by administrative districts",
+  "tbl_id": "DT_1B8000K",
+  "rol": "complementaria",
+  "uso": "Nacimientos y defunciones por sexo y si-do (2004-2025)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000K&language=en",
+    "archivo": "Live_Births_and_Deaths_by_administrative_districts_20261003100249.xlsx",
+    "lector": "xlsx_kosis"
+  },
+  "fecha_extraccion": "2026-10-03",
+  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "archivo_crudo": "Live_Births_and_Deaths_by_administrative_districts_20261003100249.xlsx",
+  "sha256_crudo": "1f334f84a669a1124cffd6ccecf4e330a71e86eb52d92326e25037c0b044307e",
+  "version": "1f334f84a669",
+  "filas": 54,
+  "columnas": 112,
+  "encabezados": [
+    "By administrative divisions",
+    "By gender",
+    "2004 | Live births",
+    "2004 | Deaths",
+    "2004 | Natural increase",
+    "2004 | Marriages(cases)",
+    "2004 | Divorces(cases)",
+    "2005 | Live births",
+    "2005 | Deaths",
+    "2005 | Natural increase",
+    "2005 | Marriages(cases)",
+    "2005 | Divorces(cases)",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {
+    "Table ID": "DT_1B8000K",
+    "Table Name": "Live Births and Deaths by administrative districts",
+    "Search Period": "[Annual] 2004~2025",
+    "Source": "Source: Ministry of Data and Statistics, Vital Statistics",
+    "Download Date": "2026.10.03 10:02",
+    "Table URL": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B8000K&language=en&conn_path=I3",
+    "Unit": "Person"
+  }
+}

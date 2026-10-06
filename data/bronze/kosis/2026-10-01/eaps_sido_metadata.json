@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "eaps_sido",
+  "tabla_fuente": "Summary of economically active population by city/province",
+  "tbl_id": "DT_1DA7004S",
+  "rol": "maestra",
+  "uso": "Mercado laboral por si-do (promedio anual publicado; miles de personas y %)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1DA7004S&language=en",
+    "archivo": "eaps_sido_anual_2000_2025.csv",
+    "lector": "csv_doble"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "archivo_crudo": "eaps_sido_anual_2000_2025.csv",
+  "sha256_crudo": "812b64f0cd4aeb912ee482929845644dccc2241c7f1614efe4425c06067c1a25",
+  "version": "812b64f0cd4a",
+  "filas": 19,
+  "columnas": 352,
+  "encabezados": [
+    "By province",
+    "2025.08 | Population 15 years old and over (Thousand Person)",
+    "2025.08 | Economically active population (Thousand Person)",
+    "2025.08 | Employed persons (Thousand Person)",
+    "2025.08 | Unemployed persons (Thousand Person)",
+    "2025.08 | Economically inactive population (Thousand Person)",
+    "2025.08 | Labor Force Participation rate (%)",
+    "2025.08 | Unemployment rate (%)",
+    "2025.08 | Employment to population ratio (%)",
+    "2025.08 | Employment to population ratio(15-64) (%)",
+    "2025.09 | Population 15 years old and over (Thousand Person)",
+    "2025.09 | Economically active population (Thousand Person)",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

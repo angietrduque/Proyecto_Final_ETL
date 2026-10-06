@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "proyeccion_escenarios",
+  "tabla_fuente": "Projected population by scenario, sex and age (Korea)",
+  "tbl_id": null,
+  "rol": "maestra",
+  "uso": "28 escenarios alternativos de KOSTAT 2022-2072 (fecundidad, esperanza de vida, migración)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/eng/",
+    "archivo": "proyeccion_nacional_edad_sexo_por_escenario_2022_2072.csv",
+    "lector": "csv_ancho"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:20-05:00",
+  "archivo_crudo": "proyeccion_nacional_edad_sexo_por_escenario_2022_2072.csv",
+  "sha256_crudo": "be3385b69399a62a06bde1416c54bde19558f2ec86b6b1f359dea62e59b4fa61",
+  "version": "be3385b69399",
+  "filas": 1848,
+  "columnas": 57,
+  "encabezados": [
+    "시나리오별",
+    "성별",
+    "연령별",
+    "항목",
+    "단위",
+    "2022 년",
+    "2023 년",
+    "2024 년",
+    "2025 년",
+    "2026 년",
+    "2027 년",
+    "2028 년",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

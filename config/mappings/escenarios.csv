@@ -1,0 +1,15 @@
+prefijo_ko,cod_escenario,nombre_es,familia,descripcion,orden
+중위 추계,medio,Medio (base),Base,"Escenario base de KOSTAT: fecundidad, esperanza de vida y migración internacional en nivel medio",1
+높은 출산율 추계,fecundidad_alta,Fecundidad alta,Fecundidad,Fecundidad alta; esperanza de vida y migración medias,2
+낮은 출산율 추계,fecundidad_baja,Fecundidad baja,Fecundidad,Fecundidad baja; esperanza de vida y migración medias,3
+출산율 현수준 추계,fecundidad_2022,Fecundidad constante 2022,Fecundidad,TFR fija en el nivel de 2022 (0.78); resto medio,4
+출산율 OECD 평균 추계,fecundidad_ocde,Fecundidad promedio OCDE,Fecundidad,TFR converge al promedio OCDE; resto medio,5
+높은 기대수명 추계,esperanza_vida_alta,Esperanza de vida alta,Mortalidad,Esperanza de vida alta; fecundidad y migración medias,6
+낮은 기대수명 추계,esperanza_vida_baja,Esperanza de vida baja,Mortalidad,Esperanza de vida baja; fecundidad y migración medias,7
+사망력 코로나19 장기영향 추계,covid_largo_plazo,Efecto prolongado COVID-19,Mortalidad,Mortalidad con efecto prolongado del COVID-19; resto medio,8
+높은 국제순이동 추계,migracion_alta,Migración internacional alta,Migración,Saldo migratorio internacional alto; fecundidad y esperanza de vida medias,9
+낮은 국제순이동 추계,migracion_baja,Migración internacional baja,Migración,Saldo migratorio internacional bajo; fecundidad y esperanza de vida medias,10
+국제 무이동추계,migracion_cero,Sin migración internacional,Migración,Saldo migratorio internacional cero; fecundidad y esperanza de vida medias,11
+빠른 고령화 추계,envejecimiento_rapido,Envejecimiento rápido,Combinado,Fecundidad baja + esperanza de vida alta + migración baja,12
+느린 고령화 추계,envejecimiento_lento,Envejecimiento lento,Combinado,Fecundidad alta + esperanza de vida baja + migración alta,13
+기타 추계,otro,Otra combinación,Otros,Combinación de supuestos (ver componentes),20

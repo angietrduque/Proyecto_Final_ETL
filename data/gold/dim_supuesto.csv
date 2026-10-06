@@ -1,0 +1,4 @@
+﻿cod_supuesto,nombre,descripcion
+A_constante,A · Participación constante,Tasas de participación por sexo y grupo de edad fijas en el valor observado de 2025.
+B_tendencia,B · Tendencia 2015-2025 amortiguada,"Se extrapola la pendiente lineal 2015-2025 de cada tasa (sexo × edad) durante 10 años (hasta 2035) y luego se mantiene constante. Tope: [0 %, 95 %] y ±10 pp respecto a 2025."
+C_brecha_genero,C · Cierre del 50 % de la brecha de género,La tasa femenina de cada grupo de edad cierra linealmente el 50 % de su brecha con la masculina entre 2025 y 2050 y luego se mantiene; la masculina queda constante (supuesto A).

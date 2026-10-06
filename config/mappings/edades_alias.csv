@@ -1,0 +1,91 @@
+dataset,alias,cod_edad,accion
+*,계,TOTAL,usar
+*,Total,TOTAL,usar
+*,0 - 4세,0-4,usar
+*,0-4세,0-4,usar
+*,0-4 Years old,0-4,usar
+*,5 - 9세,5-9,usar
+*,5-9세,5-9,usar
+*,5-9 Years old,5-9,usar
+*,10 - 14세,10-14,usar
+*,10-14세,10-14,usar
+*,10-14 Years old,10-14,usar
+*,15 - 19세,15-19,usar
+*,15-19세,15-19,usar
+*,15-19 Years old,15-19,usar
+*,20 - 24세,20-24,usar
+*,20-24세,20-24,usar
+*,20-24 Years old,20-24,usar
+*,25 - 29세,25-29,usar
+*,25-29세,25-29,usar
+*,25-29 Years old,25-29,usar
+*,30 - 34세,30-34,usar
+*,30-34세,30-34,usar
+*,30-34 Years old,30-34,usar
+*,35 - 39세,35-39,usar
+*,35-39세,35-39,usar
+*,35-39 years old,35-39,usar
+*,35-39 Years old,35-39,usar
+*,40 - 44세,40-44,usar
+*,40-44세,40-44,usar
+*,40-44 years old,40-44,usar
+*,40-44 Years old,40-44,usar
+*,45 - 49세,45-49,usar
+*,45-49세,45-49,usar
+*,45-49 years old,45-49,usar
+*,45-49 Years old,45-49,usar
+*,50 - 54세,50-54,usar
+*,50-54세,50-54,usar
+*,50-54 years old,50-54,usar
+*,50-54 Years old,50-54,usar
+*,55 - 59세,55-59,usar
+*,55-59세,55-59,usar
+*,55-59 Years old,55-59,usar
+*,60 - 64세,60-64,usar
+*,60-64세,60-64,usar
+*,60-64 Years old,60-64,usar
+*,65 - 69세,65-69,usar
+*,65-69세,65-69,usar
+*,65-69 years old,65-69,usar
+*,65-69 Years old,65-69,usar
+*,70 - 74세,70-74,usar
+*,70-74세,70-74,usar
+*,70-74 Years old,70-74,usar
+*,75 - 79세,75-79,usar
+*,75-79세,75-79,usar
+*,75-79 Years old,75-79,usar
+*,80 - 84세,80-84,usar
+*,80-84세,80-84,usar
+*,80-84 Years old,80-84,usar
+*,85 - 89세,85+,colapsar
+*,85-89세,85+,colapsar
+*,85-89 year old,85+,colapsar
+*,90 - 94세,85+,colapsar
+*,90-94세,85+,colapsar
+*,90-94 Years old,85+,colapsar
+*,95 - 99세,85+,colapsar
+*,95-99세,85+,colapsar
+*,95-99 Years old,85+,colapsar
+*,100세 이상,85+,colapsar
+*,100 Years old & over,85+,colapsar
+*,80세이상,__AGREGADO__,excluir
+*,80 Years old & over,__AGREGADO__,excluir
+censo_historico,85 Years old & over,85+,usar
+censo_historico,75 Years old & over,__AGREGADO__,excluir
+censo_historico,80 Years old and over,__AGREGADO__,excluir
+censo_historico,Age unknown,__AGREGADO__,excluir
+censo_historico,14 and under,0-14,usar
+censo_historico,15 - 64 Years old,15-64,usar
+censo_historico,65 Years old,65+,usar
+censo_historico,Mean age,__AGREGADO__,excluir
+censo_historico,Median age,__AGREGADO__,excluir
+eaps_sexo_edad,Total,15+,usar
+eaps_sexo_edad,15-19 Years old,15-19,usar
+eaps_sexo_edad,20-29 Years old,20-29,usar
+eaps_sexo_edad,30-39 Years old,30-39,usar
+eaps_sexo_edad,40-49 Years old,40-49,usar
+eaps_sexo_edad,50-59 Yeras old,50-59,usar
+eaps_sexo_edad,60 Years old and over,60+,usar
+eaps_sexo_edad,15-64 Years old,15-64,usar
+eaps_sexo_edad,15-24 Years old,15-24,usar
+eaps_sexo_edad,15-29 Years old,15-29,usar

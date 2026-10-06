@@ -1,0 +1,43 @@
+alias,cod_territorio,nota
+Whole country,00,
+Total,00,Sólo en tablas EAPS (By province = Total)
+전국,00,
+Seoul,11,
+Busan,21,
+Daegu,22,
+Incheon,23,
+Gwangju,24,
+Daejeon,25,
+Ulsan,26,
+Sejong,29,
+sejong-si,29,
+Sejong-si,29,
+Gyeonggi-do,31,
+Gangwon,32,
+Gangwon-do,32,Nombre anterior a 2023
+Gangwon-State,32,Etiqueta del censo de registros (Gangwon State desde 2023)
+Jeonbuk-State,35,Etiqueta del censo de registros (Jeonbuk State desde 2024)
+Chungcheongbuk-do,33,
+Chungcheongnam-do,34,
+Jeonbuk,35,
+Jeollabuk-do,35,Nombre anterior a 2024
+Jeollanam-do,36,
+Gyeongsangbuk-do,37,
+Gyeongsangnam-do,38,
+Jeju,39,
+Jeju-do,39,
+Abroad,__FUERA__,Eventos registrados en el exterior: fuera del alcance territorial
+Jeonnam-Gwangju,__RECHAZO__,Región combinada que sólo aparece en 2025 en EAPS/vitales mensuales; no comparable
+City area,__FUERA__,Agregado urbano/rural del censo
+Gun area,__FUERA__,Agregado urbano/rural del censo
+Eup area,__FUERA__,Agregado urbano/rural del censo
+Myeon area,__FUERA__,Agregado urbano/rural del censo
+Dong area,__FUERA__,Agregado urbano/rural del censo
+Total for dongs,__FUERA__,Agregado urbano/rural del censo
+Total for eups,__FUERA__,Agregado urbano/rural del censo
+Total for myeons,__FUERA__,Agregado urbano/rural del censo
+Hwanghae-do,__FUERA__,Provincia previa a 1945 (hoy Corea del Norte)
+Pyeonganbuk-do,__FUERA__,Provincia previa a 1945 (hoy Corea del Norte)
+Pyeongannam-do,__FUERA__,Provincia previa a 1945 (hoy Corea del Norte)
+Hamgyeongbuk-do,__FUERA__,Provincia previa a 1945 (hoy Corea del Norte)
+Hamgyeongnam-do,__FUERA__,Provincia previa a 1945 (hoy Corea del Norte)

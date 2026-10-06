@@ -1,0 +1,24 @@
+# Núcleo del pipeline
+pandas>=2.2
+numpy>=1.26
+pyarrow>=17.0
+openpyxl>=3.1
+xlrd>=2.0
+PyYAML>=6.0
+requests>=2.32
+python-dotenv>=1.0
+SQLAlchemy>=2.0
+psycopg[binary]>=3.2      # sólo si se usa PostgreSQL (DB_URL en .env)
+schedule>=1.2
+# Análisis, notebooks y pruebas
+matplotlib>=3.9
+jupyter>=1.0
+nbclient>=0.10
+nbformat>=5.10
+ipykernel>=6.29
+pytest>=8.0
+# Entregables (presentación y guion)
+python-pptx>=1.0
+python-docx>=1.1
+pillow>=10.0
+plotly>=5.20             # versión HTML del tablero

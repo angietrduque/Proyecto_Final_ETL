@@ -1,0 +1,97 @@
+dataset,item,cod_indicador,cod_sexo,cod_edad,factor
+vitales_nacional,Live births(persons),NACIMIENTOS,,,1
+vitales_nacional,Deaths(persons),DEFUNCIONES,,,1
+vitales_nacional,Natural increase(persons),CRECIMIENTO_NATURAL,,,1
+vitales_nacional,"Crude birth rate(per 1,000 population)",TASA_BRUTA_NATALIDAD,,,1
+vitales_nacional,"Crude death rate(per 1,000 population)",TASA_BRUTA_MORTALIDAD,,,1
+vitales_nacional,"Natural increase rate(per 1,000 population)",TASA_CRECIMIENTO_NATURAL,,,1
+vitales_nacional,Total fertility rate(persons),TFR,,,1
+vitales_nacional,Masculinity of birth(persons),RAZON_SEXO_NACER,,,1
+vitales_nacional,"Infant mortality rate(per 1,000 live births)",MORTALIDAD_INFANTIL,,,1
+vitales_nacional,Marriages(cases),MATRIMONIOS,,,1
+vitales_nacional,"Crude marriage rate(per 1,000 population)",TASA_NUPCIALIDAD,,,1
+vitales_nacional,Divorces(cases),DIVORCIOS,,,1
+vitales_nacional,"Crude divorce rate(per 1,000 population)",TASA_DIVORCIALIDAD,,,1
+vitales_nacional,Life expectancy at birth-total(age),ESPERANZA_VIDA,T,,1
+vitales_nacional,Life expectancy at birth-male(age),ESPERANZA_VIDA,H,,1
+vitales_nacional,Life expectancy at birth-female(age),ESPERANZA_VIDA,M,,1
+vitales_nacional_repo,Live births(persons),NACIMIENTOS,,,1
+vitales_nacional_repo,Deaths(persons),DEFUNCIONES,,,1
+vitales_nacional_repo,Natural increase(persons),CRECIMIENTO_NATURAL,,,1
+vitales_nacional_repo,Total fertility rate(persons),TFR,,,1
+vitales_sigungu,Live births (persons),NACIMIENTOS,,,1
+vitales_sigungu,"Crude birth rate(per 1,000 population)",TASA_BRUTA_NATALIDAD,,,1
+vitales_sigungu,Deaths (persons),DEFUNCIONES,,,1
+vitales_sigungu,"Crude death rate(per 1,000 population)",TASA_BRUTA_MORTALIDAD,,,1
+vitales_sigungu,Natural increase (persons),CRECIMIENTO_NATURAL,,,1
+vitales_sigungu,"Natural increase rate(per 1,000 population)",TASA_CRECIMIENTO_NATURAL,,,1
+vitales_sigungu,Marriages (cases),MATRIMONIOS,,,1
+vitales_sigungu,"Crude marriage rate(per 1,000 population)",TASA_NUPCIALIDAD,,,1
+vitales_sigungu,Divorces (cases),DIVORCIOS,,,1
+vitales_sigungu,"Crude divorce rate(per 1,000 population)",TASA_DIVORCIALIDAD,,,1
+vitales_sido,Live births (persons),NACIMIENTOS,,,1
+vitales_sido,TFR,TFR,,,1
+vitales_sido,"Crude birth rate(per 1,000 population)",TASA_BRUTA_NATALIDAD,,,1
+vitales_sido,Deaths (persons),DEFUNCIONES,,,1
+vitales_sido,"Crude death rate(per 1,000 population)",TASA_BRUTA_MORTALIDAD,,,1
+vitales_sido,Natural increase (persons),CRECIMIENTO_NATURAL,,,1
+vitales_sido,"Natural increase rate(per 1,000 population)",TASA_CRECIMIENTO_NATURAL,,,1
+vitales_sido,Marriages (cases),MATRIMONIOS,,,1
+vitales_sido,"Crude marriage rate(per 1,000 population)",TASA_NUPCIALIDAD,,,1
+vitales_sido,Divorces (cases),DIVORCIOS,,,1
+vitales_sido,"Crude divorce rate(per 1,000 population)",TASA_DIVORCIALIDAD,,,1
+vitales_sido_mensual,Live births(persons),NACIMIENTOS,,,1
+vitales_sido_mensual,Total Fertility Rate(persons),TFR,,,1
+vitales_sido_mensual,Deaths(persons),DEFUNCIONES,,,1
+nacimientos_sexo,Live births,NACIMIENTOS,,,1
+nacimientos_sexo,Deaths,DEFUNCIONES,,,1
+nacimientos_sexo,Natural increase,CRECIMIENTO_NATURAL,,,1
+tfr_sido,Total Fertility Rate,TFR,,,1
+tfr_sido,Age-specific fertility rate:15-19,TASA_FEC_EDAD,,15-19,1
+tfr_sido,20-24 Years old,TASA_FEC_EDAD,,20-24,1
+tfr_sido,25-29 Years old,TASA_FEC_EDAD,,25-29,1
+tfr_sido,30-34 Years old,TASA_FEC_EDAD,,30-34,1
+tfr_sido,35-39 Years old,TASA_FEC_EDAD,,35-39,1
+tfr_sido,40-44 Years old,TASA_FEC_EDAD,,40-44,1
+tfr_sido,45-49 Years old,TASA_FEC_EDAD,,45-49,1
+eaps_sido,Population 15 years old and over (Thousand Person),POB_15MAS,,15+,1000
+eaps_sido,Economically active population (Thousand Person),POB_ACTIVA,,15+,1000
+eaps_sido,Employed persons (Thousand Person),OCUPADOS,,15+,1000
+eaps_sido,Unemployed persons (Thousand Person),DESOCUPADOS,,15+,1000
+eaps_sido,Economically inactive population (Thousand Person),INACTIVOS,,15+,1000
+eaps_sido,Labor Force Participation rate (%),TASA_PARTICIPACION,,15+,1
+eaps_sido,Unemployment rate (%),TASA_DESEMPLEO,,15+,1
+eaps_sido,Employment to population ratio (%),TASA_EMPLEO,,15+,1
+eaps_sido,Employment to population ratio(15-64) (%),TASA_EMPLEO_15_64,,15-64,1
+eaps_sexo_edad,Population 15 years old and over (Thousand Person),POB_15MAS,,,1000
+eaps_sexo_edad,Economically active population (Thousand Person),POB_ACTIVA,,,1000
+eaps_sexo_edad,Employed persons (Thousand Person),OCUPADOS,,,1000
+eaps_sexo_edad,Unemployed persons (Thousand Person),DESOCUPADOS,,,1000
+eaps_sexo_edad,Economically inactive population (Thousand Person),INACTIVOS,,,1000
+eaps_sexo_edad,Labor Force Participation rate (%),TASA_PARTICIPACION,,,1
+eaps_sexo_edad,Unemployment rate (%),TASA_DESEMPLEO,,,1
+eaps_sexo_edad,Employment to population ratio (%),TASA_EMPLEO,,,1
+poblacion_nacional,*,POBLACION,,,1
+poblacion_sido,Population projection,POBLACION,,,1
+proyeccion_escenarios,추계인구,POBLACION,,,1
+censo_registros,Total population[Person],POB_CENSO_TOTAL,T,,1
+censo_registros,Male[Person],POB_CENSO_TOTAL,H,,1
+censo_registros,Female[Person],POB_CENSO_TOTAL,M,,1
+censo_registros,Foreigner-Total[Person],POB_EXTRANJERA,T,,1
+censo_registros,Foreigner-Male[Person],POB_EXTRANJERA,H,,1
+censo_registros,Foreigner-Female[Person],POB_EXTRANJERA,M,,1
+censo_registros,Household-Total[households],HOGARES,T,,1
+censo_historico,Population[Person],POB_CENSO_HIST,T,,1
+censo_historico,Male[Person],POB_CENSO_HIST,H,,1
+censo_historico,Female[Person],POB_CENSO_HIST,M,,1
+proyeccion_resumen,총인구(명),POBLACION,T,TOTAL,1
+proyeccion_resumen,인구(명): 0-14세,POBLACION,T,0-14,1
+proyeccion_resumen,인구(명): 15-64세,POBLACION,T,15-64,1
+proyeccion_resumen,인구(명): 65세 이상,POBLACION,T,65+,1
+proyeccion_resumen,- 구성비(%): 15-64세,PROP_15_64,T,TOTAL,1
+proyeccion_resumen,- 구성비(%): 65세 이상,PROP_65MAS,T,TOTAL,1
+proyeccion_resumen,총부양비,DEP_TOTAL,T,TOTAL,1
+proyeccion_resumen,유소년부양비,DEP_JUVENIL,T,TOTAL,1
+proyeccion_resumen,노년부양비,DEP_VEJEZ,T,TOTAL,1
+proyeccion_resumen,노령화지수,IND_ENVEJECIMIENTO,T,TOTAL,1
+proyeccion_resumen,중위연령(세),EDAD_MEDIANA,T,TOTAL,1

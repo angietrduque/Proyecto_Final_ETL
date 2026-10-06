@@ -1,0 +1,37 @@
+{
+  "fuente": "KOSIS",
+  "dataset": "poblacion_sido",
+  "tabla_fuente": "Projected Population by Age (Province) - escenario medio",
+  "tbl_id": "DT_1BPB001",
+  "rol": "maestra",
+  "uso": "Población por si-do, sexo y edad 2000-2052 (2000-2022 estimada; 2023+ proyección medio)",
+  "metodo": "descarga_manual",
+  "params": {
+    "url": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1BPB001&language=en",
+    "archivo": "poblacion_sido_edad_sexo_2000_2052_medio.csv",
+    "lector": "csv_ancho"
+  },
+  "fecha_extraccion": "2026-10-01",
+  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "archivo_crudo": "poblacion_sido_edad_sexo_2000_2052_medio.csv",
+  "sha256_crudo": "83a287f65903bdbe1e08b869bd1b59be33b6e332fff32fb496c5a5d1ea7afe0c",
+  "version": "83a287f65903",
+  "filas": 1242,
+  "columnas": 60,
+  "encabezados": [
+    "By scenarios",
+    "By province",
+    "By gender",
+    "By age",
+    "Item",
+    "UNIT",
+    "2000 Year",
+    "2001 Year",
+    "2002 Year",
+    "2003 Year",
+    "2004 Year",
+    "2005 Year",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}
