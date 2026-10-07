@@ -1,0 +1,39 @@
+{
+  "fuente": "OECD",
+  "dataset": "productividad",
+  "tabla_fuente": "OECD.SDD.TPS,DSD_PDB@DF_PDB,2.0",
+  "tbl_id": null,
+  "rol": "maestra",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_PDB@DF_PDB,2.0/KOR+JPN+USA+DEU+ITA+ESP+FRA.A.GDPHRS._T.USD_PPP_H.LR...",
+    "startPeriod": 2000,
+    "format": "csvfilewithlabels",
+    "dataflow": "OECD.SDD.TPS,DSD_PDB@DF_PDB,2.0",
+    "clave": "KOR+JPN+USA+DEU+ITA+ESP+FRA.A.GDPHRS._T.USD_PPP_H.LR..."
+  },
+  "fecha_extraccion": "2026-10-06",
+  "fecha_ingesta": "2026-10-06T20:02:12-05:00",
+  "archivo_crudo": "productividad.csv",
+  "sha256_crudo": "29dd26f8bc76c6f8fd8300d4db1fa26cf1f2a41b00fbfe923855146e341392fd",
+  "version": "29dd26f8bc76",
+  "filas": 208,
+  "columnas": 34,
+  "encabezados": [
+    "STRUCTURE",
+    "STRUCTURE_ID",
+    "STRUCTURE_NAME",
+    "ACTION",
+    "REF_AREA",
+    "Reference area",
+    "FREQ",
+    "Frequency of observation",
+    "MEASURE",
+    "Measure",
+    "ACTIVITY",
+    "Economic activity",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

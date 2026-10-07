@@ -43,7 +43,7 @@ Total, hombres, mujeres.
 | nombre | str |  |  | 0.0 | Total |
 | orden | int64 |  |  | 0.0 | 0 |
 
-## `dim_edad` (30 filas)
+## `dim_edad` (32 filas)
 
 Grupos quinquenales, grupos funcionales (0-14, 15-64, 65+) y grupos de la EAPS.
 
@@ -94,13 +94,13 @@ Catálogo de indicadores: definición, fórmula, unidad, fuente maestra/contrast
 | orden | int64 |  |  | 0.0 | 1 |
 | etiqueta_kostat | str |  |  | 0.0 | 중위 추계(기본 추계: 출산율-중위 / 기대수명-중위 / 국제순이동-중위 |
 
-## `dim_supuesto` (3 filas)
+## `dim_supuesto` (4 filas)
 
-Supuestos A/B/C de participación laboral de los escenarios propios.
+Supuestos A/B/C/D de participación laboral de los escenarios propios.
 
 | Columna | Tipo | Clave | Descripción | % nulos | Ejemplo |
 |---|---|---|---|---|---|
-| cod_supuesto | str | PK | Supuesto de participación A/B/C (dim_supuesto) | 0.0 | A_constante |
+| cod_supuesto | str | PK | Supuesto de participación A/B/C/D (dim_supuesto) | 0.0 | A_constante |
 | nombre | str |  |  | 0.0 | A · Participación constante |
 | descripcion | str |  |  | 0.0 | Tasas de participación por sexo y grupo  |
 
@@ -114,7 +114,7 @@ Naturaleza del dato: observado, estimado, calculado, proyección oficial, escena
 | descripcion | str |  |  | 0.0 | Dato publicado por la fuente (registro a |
 | orden | int64 |  |  | 0.0 | 1 |
 
-## `dim_fuente` (28 filas)
+## `dim_fuente` (29 filas)
 
 Versión vigente de cada dataset de Bronze (fuente, tabla, URL, fecha de extracción, sha256).
 
@@ -122,7 +122,7 @@ Versión vigente de cada dataset de Bronze (fuente, tabla, URL, fecha de extracc
 |---|---|---|---|---|---|
 | fuente | str | PK | Institución productora (KOSIS, WB, OECD) o 'Pipeline' si es cálculo propio | 0.0 | KOSIS |
 | dataset | str | PK | Dataset de origen en Bronze (o regla de cálculo) | 0.0 | censo_historico |
-| tbl_id | str |  |  | 50.0 | DT_1IN0001 |
+| tbl_id | str |  |  | 51.72 | DT_1IN0001 |
 | rol | str |  |  | 0.0 | contexto |
 | url | str |  |  | 0.0 | https://kosis.kr/statHtml/statHtml.do?or |
 | fecha_extraccion | str |  |  | 0.0 | 2026-10-02 |
@@ -169,7 +169,7 @@ Grano: año × territorio × sexo × edad × indicador × escenario × edición.
 | dataset | str |  | Dataset de origen en Bronze (o regla de cálculo) | 0.0 | poblacion_nacional |
 | estado | str |  | definitivo / preliminar (según marca 'p)' de la fuente) / proyectado | 0.0 | proyectado |
 
-## `fact_fuerza_laboral_escenario` (52.200 filas)
+## `fact_fuerza_laboral_escenario` (69.600 filas)
 
 Grano: año × escenario de población × supuesto × sexo × grupo EAPS. Escenario propio (no pronóstico).
 
@@ -181,12 +181,13 @@ Grano: año × escenario de población × supuesto × sexo × grupo EAPS. Escena
 | cod_edad | str | PK | Código de grupo de edad (dim_edad) | 0.0 | 15-19 |
 | poblacion_proyectada | Float64 |  | Población KOSTAT del grupo sexo × edad (personas) | 0.0 | 1188393.0 |
 | tasa_participacion | Float64 |  | Tasa de participación supuesta (%) | 0.0 | 5.3 |
-| cod_supuesto | str | PK | Supuesto de participación A/B/C (dim_supuesto) | 0.0 | A_constante |
-| fuerza_laboral_potencial | Float64 |  | poblacion_proyectada × tasa_participacion / 100 (personas) | 0.0 | 62984.829 |
+| cod_supuesto | str | PK | Supuesto de participación A/B/C/D (dim_supuesto) | 0.0 | A_constante |
+| factor_cobertura | Float64 |  | Población 15+ EAPS / población KOSTAT en 2025, por sexo y grupo (ajuste de escala) | 0.0 | 0.9710101245359017 |
+| fuerza_laboral_potencial | Float64 |  | poblacion_proyectada × tasa_participacion / 100 (personas) | 0.0 | 61158.90665116248 |
 | tipo_dato | str | FK → dim_tipo_dato | Naturaleza del dato (dim_tipo_dato) | 0.0 | escenario_propio |
-| fuerza_laboral_total_anio | Float64 |  | Suma de la fuerza laboral potencial del año, escenario y supuesto | 0.0 | 29921450.506 |
-| fuerza_laboral_total_base | Float64 |  | Misma suma en el año base 2025 | 0.0 | 30033451.717 |
-| indice_base_2025 | Float64 |  | fuerza_laboral_total_anio / base × 100 | 0.0 | 99.62707845886192 |
+| fuerza_laboral_total_anio | Float64 |  | Suma de la fuerza laboral potencial del año, escenario y supuesto | 0.0 | 29463939.20639693 |
+| fuerza_laboral_total_base | Float64 |  | Misma suma en el año base 2025 | 0.0 | 29593423.670705568 |
+| indice_base_2025 | Float64 |  | fuerza_laboral_total_anio / base × 100 | 0.0 | 99.56245527469397 |
 
 ## `fact_riesgo_regional` (17 filas)
 
@@ -219,7 +220,36 @@ Grano: si-do (año de referencia 2025). Componentes e índice compuesto de riesg
 | tipo_dato | str | FK → dim_tipo_dato | Naturaleza del dato (dim_tipo_dato) | 0.0 | inferencia_propia |
 | nota | str |  |  | 0.0 | TFR, participación y nacimientos observa |
 
-## `fact_comparacion_internacional` (3.396 filas)
+## `fact_riesgo_sensibilidad` (119 filas)
+
+Grano: esquema de ponderación × si-do. Índice y ranking del riesgo regional con 7 esquemas (robustez).
+
+| Columna | Tipo | Clave | Descripción | % nulos | Ejemplo |
+|---|---|---|---|---|---|
+| esquema | str | PK | Esquema de ponderación/normalización del índice de riesgo | 0.0 | base_6z |
+| descripcion | str |  |  | 0.0 | Esquema base · 6 componentes estandariza |
+| cod_territorio | str | PK | Código de territorio (KOSIS si-do / ISO3) | 0.0 | 11 |
+| indice | float64 |  |  | 0.0 | 0.2675073457718172 |
+| ranking | int64 |  |  | 0.0 | 8 |
+| en_top5 | bool |  | Si el si-do queda entre los 5 de mayor riesgo | 0.0 | False |
+| tipo_dato | str | FK → dim_tipo_dato | Naturaleza del dato (dim_tipo_dato) | 0.0 | inferencia_propia |
+
+## `fact_escenarios_sensibilidad` (12 filas)
+
+Grano: supuesto × variante de parámetro. Variación de la fuerza laboral potencial 2025-2050 y 2025-2072.
+
+| Columna | Tipo | Clave | Descripción | % nulos | Ejemplo |
+|---|---|---|---|---|---|
+| cod_supuesto | str | PK | Supuesto de participación A/B/C/D (dim_supuesto) | 0.0 | A_constante |
+| variante | str | PK | Parámetro modificado del supuesto (base = parámetros de config.yaml) | 0.0 | base |
+| es_base | bool |  |  | 0.0 | True |
+| fuerza_laboral_2025 | float64 |  |  | 0.0 | 29606821.0 |
+| fuerza_laboral_2050 | float64 |  |  | 0.0 | 26135624.82746642 |
+| var_2050_pct | float64 |  |  | 0.0 | -11.724312355364253 |
+| var_2072_pct | float64 |  |  | 0.0 | -33.65917608036406 |
+| tipo_dato | str | FK → dim_tipo_dato | Naturaleza del dato (dim_tipo_dato) | 0.0 | escenario_propio |
+
+## `fact_comparacion_internacional` (3.480 filas)
 
 Grano: año × país × indicador × fuente (World Bank / OECD).
 
@@ -299,9 +329,10 @@ Tabla plana: una fila por año (1970-2072) con los indicadores nacionales clave 
 | POB_65MAS | Float64 |  |  | 29.13 | 3394896.0 |
 | POB_TOTAL | Float64 |  |  | 29.13 | 47008111.0 |
 | tipo_dato_poblacion | str |  | estimado (≤2022) o proyeccion_oficial (≥2023) para la población y estructura de esa fila | 0.0 | estimado |
-| FLP_A | Float64 |  |  | 51.46 | 29921450.506 |
-| FLP_B | Float64 |  |  | 51.46 | 29921450.506 |
-| FLP_C | Float64 |  |  | 51.46 | 29921450.506 |
+| FLP_A | Float64 |  |  | 51.46 | 29463939.20639693 |
+| FLP_B | Float64 |  |  | 51.46 | 29463939.20639693 |
+| FLP_C | Float64 |  |  | 51.46 | 29463939.20639693 |
+| FLP_D | Float64 |  |  | 51.46 | 29463939.20639693 |
 | PIB_HORA | Float64 |  |  | 74.76 | 19.522798554740376 |
 | periodo | str |  |  | 0.0 | Histórico |
 
@@ -346,7 +377,7 @@ Tabla plana: una fila por año y si-do con los indicadores regionales clave.
 
 ## `kpi_okr` (13 filas)
 
-Tablero OKR: KR1-KR4 (proceso, con meta) y KR5 (negocio, monitoreo).
+OKR del estudio: 13 resultados clave (O1 diagnóstico, O2 impacto laboral, O3 decisión, O4 calidad).
 
 | Columna | Tipo | Clave | Descripción | % nulos | Ejemplo |
 |---|---|---|---|---|---|
@@ -363,7 +394,7 @@ Tablero OKR: KR1-KR4 (proceso, con meta) y KR5 (negocio, monitoreo).
 | tipo_kpi | str |  |  | 0.0 | resultado |
 | formula | str |  |  | 0.0 |  |
 
-## `kpi_calidad_dataset` (31 filas)
+## `kpi_calidad_dataset` (32 filas)
 
 Registros evaluados, válidos y rechazados por dataset (reglas de aceptación).
 

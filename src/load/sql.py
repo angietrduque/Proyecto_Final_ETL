@@ -27,6 +27,8 @@ PK = {
                                   "edicion_proyeccion"],
     "fact_fuerza_laboral_escenario": ["anio", "cod_escenario", "cod_supuesto", "cod_sexo", "cod_edad"],
     "fact_riesgo_regional": ["cod_territorio"],
+    "fact_riesgo_sensibilidad": ["esquema", "cod_territorio"],
+    "fact_escenarios_sensibilidad": ["cod_supuesto", "variante"],
     "fact_comparacion_internacional": ["anio", "cod_territorio", "cod_sexo", "cod_edad", "cod_indicador", "fuente"],
     "dataset_nacional_anual": ["anio", "cod_territorio"], "dataset_regional_anual": ["anio", "cod_territorio"],
     "kpi_okr": ["kr"], "kpi_indicadores": ["codigo"], "kpi_calidad_dataset": ["dataset"],

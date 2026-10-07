@@ -278,6 +278,13 @@ oecd:
       clave: "A.CTRY.{paises}..FERT_RATIO+LIVE_BIRTHS..."
       rol: contraste
       nota: TFR (AGE=_T) y nacimientos (UNIT_MEASURE=BR) a nivel país
+    participacion_edad_sexo:
+      dataflow: OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0
+      clave: "KOR+OECD.LF_WAP...N....A"
+      rol: contraste
+      nota: >
+        Tasa de participación por sexo y edad (15-24, 25-54, 55-64) del promedio OCDE. Insumo del supuesto C de
+        convergencia a la OCDE (propuesta del Avance 2, implementada como en el repositorio de Miguel).
 
 # -------------------------------------------------------------------------------------
 # UN World Population Prospects 2024 (requiere token gratuito UNWPP_API_TOKEN en .env).
@@ -307,10 +314,57 @@ escenarios_fuerza_laboral:
       anios_tendencia: [2015, 2025]
       horizonte_tendencia: 2035
       tope_pp: 10
-    C_brecha_genero:
-      nombre: "C · Cierre del 50 % de la brecha de género"
+    C_convergencia_ocde:
+      nombre: "C · Convergencia al promedio OCDE"
+      descripcion: >
+        Cada tasa (sexo × edad) converge linealmente a la del promedio OCDE, que alcanza en 2050 y mantiene
+        después. 15-19 y 60+ quedan constantes: la OCDE sólo publica 15-24 y no publica 65+ por sexo.
+      anio_convergencia: 2050
+      equivalencias_ocde: {"20-29": {"15-24": 0.5, "25-54": 0.5}, "30-39": {"25-54": 1}, "40-49": {"25-54": 1},
+                           "50-59": {"25-54": 0.5, "55-64": 0.5}}
+    D_brecha_genero:
+      nombre: "D · Cierre del 50 % de la brecha de género"
       descripcion: >
         La tasa femenina de cada grupo de edad cierra linealmente el 50 % de su brecha con la masculina
-        entre 2025 y 2050 y luego se mantiene; la masculina queda constante (supuesto A).
+        entre 2025 y 2050 y luego se mantiene; la masculina queda constante. Donde las mujeres ya participan
+        más, la tasa no cambia: cerrar la brecha nunca baja una tasa.
       fraccion_cierre: 0.5
       anio_meta: 2050
+  # Población × factor de cobertura EAPS × tasa: la EAPS cubre la población civil no institucional (menor que la
+  # población total de KOSTAT). Sin el factor, el modelo queda ~1,5 % por encima de la PEA observada de 2025.
+  ajuste_cobertura_eaps: true
+  # Sensibilidad: cada variante reemplaza un parámetro de un supuesto (resultado en gold.fact_escenarios_sensibilidad).
+  sensibilidad:
+    B_tendencia: [{tope_pp: 5}, {tope_pp: 15}, {horizonte_tendencia: 2030}, {horizonte_tendencia: 2040}]
+    C_convergencia_ocde: [{anio_convergencia: 2040}, {anio_convergencia: 2060}]
+    D_brecha_genero: [{fraccion_cierre: 0.25}, {fraccion_cierre: 1.0}]
+
+# -------------------------------------------------------------------------------------
+# Índice de riesgo regional (inferencia propia): esquema base = 6 componentes z con peso igual.
+# Sensibilidad: el ranking se recalcula con otros pesos y normalizaciones (gold.fact_riesgo_sensibilidad).
+# -------------------------------------------------------------------------------------
+riesgo_regional:
+  esquemas_sensibilidad:
+    base_6z:
+      descripcion: Esquema base · 6 componentes estandarizados (z) con peso igual
+      pesos: {tfr: 1, prop_65mas: 1, dep_vejez: 1, tasa_participacion: 1, ind_reemplazo_laboral: 1, var_pob_15_64_2052_pct: 1}
+    cuatro_minmax:
+      descripcion: Índice del repositorio de Miguel · 4 componentes con mínimo-máximo
+      normalizacion: minmax
+      pesos: {prop_65mas: 1, tfr: 1, var_pob_15_64_2052_pct: 1, dep_vejez: 1}
+    situacion_actual:
+      descripcion: Sólo la situación de 2025 (sin la proyección a 2052)
+      pesos: {tfr: 1, prop_65mas: 1, dep_vejez: 1, tasa_participacion: 1, ind_reemplazo_laboral: 1}
+    solo_proyeccion:
+      descripcion: Sólo la caída proyectada de la población 15-64 a 2052
+      pesos: {var_pob_15_64_2052_pct: 1}
+    envejecimiento_doble:
+      descripcion: Doble peso a envejecimiento y dependencia
+      pesos: {tfr: 1, prop_65mas: 2, dep_vejez: 2, tasa_participacion: 1, ind_reemplazo_laboral: 1, var_pob_15_64_2052_pct: 1}
+    natalidad_doble:
+      descripcion: Doble peso a fecundidad y reemplazo laboral
+      pesos: {tfr: 2, prop_65mas: 1, dep_vejez: 1, tasa_participacion: 1, ind_reemplazo_laboral: 2, var_pob_15_64_2052_pct: 1}
+    percentil_6:
+      descripcion: 6 componentes con normalización por percentil (no depende de valores extremos)
+      normalizacion: percentil
+      pesos: {tfr: 1, prop_65mas: 1, dep_vejez: 1, tasa_participacion: 1, ind_reemplazo_laboral: 1, var_pob_15_64_2052_pct: 1}

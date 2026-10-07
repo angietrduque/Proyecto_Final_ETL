@@ -146,7 +146,7 @@ def figuras():
     for esc in escs:
         d = flp[flp.escenario == esc]
         f = go.Figure([lin(g_.anio, g_.flp / 1e6, sup, c, 2.5, fmt=",.2f")
-                       for (sup, g_), c in zip(d.groupby("supuesto", sort=True), [ROJO, AZUL, AMBAR])])
+                       for (sup, g_), c in zip(d.groupby("supuesto", sort=True), [ROJO, AZUL, VERDE, AMBAR])])
         F["flp"][esc] = base_layout(f, "millones")
     irl_e = n[(n.tipo_dato_poblacion == "estimado") & n.IND_REEMPLAZO_LABORAL.notna()]
     irl_p = n[((n.tipo_dato_poblacion != "estimado") | (n.anio == irl_e.anio.max())) & n.IND_REEMPLAZO_LABORAL.notna()]
@@ -279,7 +279,7 @@ def construir():
         panel("Esperanza de vida (años)", graf("ev", 220)) + "</div></div></div>")
     sel_esc = "".join(f'<option>{html.escape(e_)}</option>' for e_ in F["flp"])
     secciones["fuerza_laboral"] = ("Fuerza laboral futura",
-        "Escenarios oficiales KOSTAT (7 de 29) y escenarios propios A/B/C de participación (no son pronósticos)",
+        "Escenarios oficiales KOSTAT (7 de 29) y escenarios propios A/B/C/D de participación (no son pronósticos)",
         '<div class="fila f-1-1">' + panel("Población de 15-64 años por escenario oficial (millones)", graf("esc", 320)) +
         panel("Fuerza laboral potencial (millones) · escenario propio",
               f'<label class="selector">Escenario de población <select id="sel_flp">{sel_esc}</select></label>' + graf("flp", 280)) +

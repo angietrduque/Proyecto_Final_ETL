@@ -272,7 +272,7 @@ DESCRIPCIONES = {
     "pbi_nacional": "Una fila por año (1970-2072), Corea del Sur. Vitales y laborales observados; población y estructura "
                     "estimadas hasta 2022 y proyección KOSTAT medio desde 2023 (columna tipo_dato_poblacion).",
     "pbi_escenarios": "Proyección oficial KOSTAT para 7 escenarios clave (de 29 en Gold).",
-    "pbi_flp": "Escenario propio de fuerza laboral potencial (supuestos A/B/C). No es pronóstico.",
+    "pbi_flp": "Escenario propio de fuerza laboral potencial (supuestos A/B/C/D). No es pronóstico.",
     "pbi_riesgo": "Índice de riesgo demográfico-laboral por si-do (inferencia propia, ponderación igual).",
 }
 
@@ -681,10 +681,10 @@ def paginas() -> list[Pagina]:
 
     # ------------------------------------------------------------------ 4 Fuerza laboral
     p = Pagina("fuerza_laboral", "Fuerza laboral", "Fuerza laboral futura",
-               "Escenarios oficiales KOSTAT (7 de 29) y escenarios propios A/B/C de participación (no son pronósticos)", "maletin")
+               "Escenarios oficiales KOSTAT (7 de 29) y escenarios propios A/B/C/D de participación (no son pronósticos)", "maletin")
     linea(p, "pob1564", C, 94, 530, 298, "pbi_anios", "anio", [("pbi_escenarios", "Población 15-64 por escenario")],
           "Población de 15-64 años por escenario oficial (millones)", [], leyenda=("pbi_escenarios", "escenario"))
-    segmentador(p, "escFLP", C + 544, 94, 524, 60, "pbi_escenario_sel", "escenario", "Escenario de población para A/B/C")
+    segmentador(p, "escFLP", C + 544, 94, 524, 60, "pbi_escenario_sel", "escenario", "Escenario de población para A/B/C/D")
     linea(p, "flp", C + 544, 162, 524, 230, "pbi_anios", "anio", [("pbi_flp", "Fuerza laboral potencial")],
           "Fuerza laboral potencial (millones) · escenario propio", [], leyenda=("pbi_flp", "supuesto"))
     linea(p, "reemplazo", C, 406, 470, 302, "pbi_anios", "anio",

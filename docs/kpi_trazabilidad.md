@@ -19,10 +19,10 @@ de `python main.py`; también en `docs/reporte_calidad.md` y en el tablero de Po
 | | KR1.2 | Indicadores de natalidad y envejecimiento con fórmula única, validados contra KOSTAT | 6 indicadores, dif. ≤ 1 % | 6 · 0,37 % | fact_conciliacion |
 | | KR1.3 | Brecha de Corea frente a la OCDE cuantificada | ≥ 5 países | 8 + Corea (TFR 46 % bajo la OCDE) | fact_comparacion_internacional |
 | **O2 · Impacto laboral** — Dimensionar el impacto sobre la fuerza laboral futura (2025-2072), separando proyección oficial y escenarios propios | KR2.1 | Escenarios oficiales KOSTAT integrados sin modificar y separados del histórico | 100 % con escenario y edición | 29 escenarios · 100 % | fact_indicador_proyeccion |
-| | KR2.2 | Escenarios propios de fuerza laboral con supuestos explícitos y calibrados | 3 supuestos · calibración ≤ ±5 % | 3 · +1,51 % | fact_fuerza_laboral_escenario |
-| | KR2.3 | Pérdida de población 15-64 y de fuerza laboral a 2050 cuantificada con rango | rango en todos los escenarios | 15-64: −36,4 % a −27,4 % · FLP: A −12,2 %, B −5,5 %, C −6,4 % | fact_indicador_proyeccion |
-| **O3 · Decisión** — Orientar la decisión pública: dónde y con qué palancas actuar | KR3.1 | Riesgo demográfico-laboral medido para todas las regiones | 17 de 17 si-do | 17 · 6 en riesgo alto | fact_riesgo_regional |
-| | KR3.2 | Palancas de política cuantificadas | 3 de 3 | fecundidad alta +1,4 pp · migración alta vs cero +7,7 pp · participación B vs A +6,7 pp | fact_indicador_proyeccion / fact_fuerza_laboral_escenario |
+| | KR2.2 | Escenarios propios con supuestos explícitos, escala ajustada a la EAPS y sensibilidad | 4 supuestos · diferencia sin ajuste ≤ ±5 % | 4 · sin ajuste +1,51 % · 8 variantes | fact_fuerza_laboral_escenario / fact_escenarios_sensibilidad |
+| | KR2.3 | Pérdida de población 15-64 y de fuerza laboral a 2050 cuantificada con rango | rango en todos los escenarios | 15-64: −36,4 % a −27,4 % · FLP: A −11,7 % · B −4,9 % · C −11,8 % · D −5,7 % | fact_indicador_proyeccion |
+| **O3 · Decisión** — Orientar la decisión pública: dónde y con qué palancas actuar | KR3.1 | Riesgo demográfico-laboral medido para todas las regiones | 17 de 17 si-do | 17 · 6 en riesgo alto · Busan y Gyeongsangbuk-do en el top 5 en los 7 esquemas | fact_riesgo_regional / fact_riesgo_sensibilidad |
+| | KR3.2 | Palancas de política cuantificadas | 4 de 4 | fecundidad alta +1,4 pp · migración alta vs cero +7,7 pp · participación B vs A +6,8 pp · brecha D vs A +6,0 pp | fact_indicador_proyeccion / fact_fuerza_laboral_escenario |
 | | KR3.3 | Tablero de Power BI que responde las 10 preguntas de negocio | 10 de 10 | 10 de 10 · 8 páginas con portada y navegador | ../powerbi/ETL_Corea_Grupo6.pbix |
 | **O4 · Calidad del dato (habilitador)** — Garantizar datos confiables, trazables y reproducibles | KR4.1 | Registros válidos tras las reglas | ≥ 98 % | 99,96 % | kpi_calidad_dataset |
 | | KR4.2 | Rechazos con motivo trazado | ≤ 2 % y 100 % trazados | 0,04 % · 100 % | ctl_rechazos |
@@ -43,7 +43,7 @@ de `python main.py`; también en `docs/reporte_calidad.md` y en el tablero de Po
 | Fuerza laboral | KPI-08 | Índice de reemplazo laboral | P15-24 / P55-64 × 100 | 58 (2025) | 100 | 🔴 Crítico (< 70) | proyección oficial |
 | Fuerza laboral | KPI-09 | Tasa de participación laboral (15+) | PEA / P15+ × 100 | 64,7 % (2025) | OCDE 60,6 % | 🟢 Normal | observado |
 | Fuerza laboral | KPI-10 | Brecha de género en participación | TP_H − TP_M | 15,8 pp (2025) | ≤ 10 pp | 🟠 Alerta | calculado |
-| Fuerza laboral | KPI-11 | Variación de la fuerza laboral potencial a 2050 | Σ P_proy × TP_supuesta | −12,2 % (A) · −5,5 % (B) · −6,4 % (C) | 0 % | 🔴 Crítico | escenario propio |
+| Fuerza laboral | KPI-11 | Variación de la fuerza laboral potencial a 2050 | Σ P_proy × cobertura × TP_supuesta | A −11,7 % · B −4,9 % · C −11,8 % · D −5,7 % | 0 % | 🔴 Crítico | escenario propio |
 | Territorio | KPI-12 | Si-do en riesgo alto | nº en el tercil superior del índice | 6 de 17 | — | 🟠 Alerta | inferencia propia |
 | Contexto | KPI-13 | Población extranjera residente | extranjeros / población censada × 100 | 4,1 % (2025) | — | Contexto | calculado |
 | Contexto | KPI-14 | PIB por hora trabajada | publicado por la OCDE | 53,4 USD PPA (2025) | — | Contexto | observado |
@@ -84,8 +84,8 @@ Son referencias de lectura, no metas que el proyecto pueda controlar.
 
 ## 5. Limitaciones
 * Población por edad 2023-2025 = proyección KOSTAT (rotulada); se contrasta con el censo de registros.
-* Escenario C: el Avance 2 proponía convergencia al promedio OCDE; sin tasas OCDE por sexo × edad comparables con la EAPS
-  se usa el cierre del 50 % de la brecha de género.
+* Escenario C (convergencia al promedio OCDE, propuesta del Avance 2): la OCDE publica 15-24, 25-54 y 55-64; los grupos
+  EAPS se arman con pesos (p. ej. 20-29 = ½ 15-24 + ½ 25-54) y 15-19 y 60+ quedan constantes (sin equivalencia).
 * EAPS con grupos decenales y 60+ abierto; las cifras regionales de la EAPS son muestrales (mayor error que las
   nacionales: se leen como tendencias, no como diferencias exactas entre si-do).
 * KPI-09 se compara con una estimación modelada de la OIT (World Bank): referencia de orden de magnitud.

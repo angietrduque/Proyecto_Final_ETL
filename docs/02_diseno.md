@@ -43,7 +43,7 @@ flowchart LR
   S4 -->|rechazados| CTL[(ctl.rechazos)]
   SV --> C[consistencia y<br/>conciliación] --> CTL2[(ctl.validaciones)]
   SV --> G1[derivados · CNSJ] --> GD[(Gold<br/>estrella)]
-  SV --> G2[escenarios A/B/C] --> GD
+  SV --> G2[escenarios A/B/C/D] --> GD
   SV --> G3[índice regional] --> GD
   GD --> SQL[(SQLite / PostgreSQL)] --> PBI[Power BI]
   GD --> KPI[kpi_okr · reporte_calidad.md]
@@ -119,10 +119,19 @@ reorganizan en `src/ingestion` sin dependencia obligatoria de PostgreSQL.
 
 * Tasas base: EAPS 2025 por sexo y grupo (15-19, 20-29, 30-39, 40-49, 50-59, 60+).
 * Población: KOSTAT por sexo y quinquenio, agregada a los grupos EAPS (60-64 … 85+ → 60+).
+* **Factor de cobertura EAPS** (ajuste de escala): población 15+ de la EAPS / población KOSTAT en 2025, por sexo y grupo.
+  La EAPS cubre la población civil no institucional (sin servicio militar ni instituciones); el factor más bajo es
+  hombres 20-29 (≈ 0,88). Sin él el modelo queda +1,5 % sobre la PEA de 2025; con él coincide por construcción, por
+  eso se presenta como ajuste y no como validación.
 * **A** constante 2025 · **B** pendiente MCO 2015-2025 hasta 2035, luego constante, tope ±10 pp y [0, 95] ·
-  **C** cierre lineal del 50 % de la brecha H−M por edad entre 2025 y 2050.
+  **C** convergencia lineal a la tasa del promedio OCDE por sexo y edad, alcanzada en 2050 (15-19 y 60+ constantes) ·
+  **D** cierre lineal del 50 % de la brecha H−M por edad entre 2025 y 2050, sin bajar nunca una tasa.
+* Sensibilidad (`gold.fact_escenarios_sensibilidad`): B con tope 5/15 pp y horizonte 2030/2040; C con convergencia en
+  2040/2060; D con cierre del 25 % / 100 %.
 * Sesgo conocido: el grupo abierto 60+ envejece internamente (más 80+), por lo que A sobreestima la fuerza laboral
-  mayor en el largo plazo; se reporta el índice 2025 = 100 y la calibración (+1,5 % vs PEA 2025).
+  mayor en el largo plazo; se reporta también el índice 2025 = 100.
+* Índice de riesgo regional: 6 componentes z con peso igual; su robustez se prueba con 7 esquemas
+  (`gold.fact_riesgo_sensibilidad`), incluido el índice de 4 componentes mínimo-máximo del repositorio de Miguel.
 
 ## 6. Trazabilidad de KPIs
 Ver [`kpi_trazabilidad.md`](kpi_trazabilidad.md) y [`retroalimentacion_trazabilidad.md`](retroalimentacion_trazabilidad.md).

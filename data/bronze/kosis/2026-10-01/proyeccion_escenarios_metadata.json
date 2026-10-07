@@ -12,7 +12,7 @@
     "lector": "csv_ancho"
   },
   "fecha_extraccion": "2026-10-01",
-  "fecha_ingesta": "2026-10-05T22:52:20-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:27-05:00",
   "archivo_crudo": "proyeccion_nacional_edad_sexo_por_escenario_2022_2072.csv",
   "sha256_crudo": "be3385b69399a62a06bde1416c54bde19558f2ec86b6b1f359dea62e59b4fa61",
   "version": "be3385b69399",

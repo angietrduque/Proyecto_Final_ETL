@@ -304,6 +304,19 @@ def silver_oecd(ctl: Control) -> pd.DataFrame:
         partes.append(("fecundidad", meta, raw[(raw.MEASURE == "LIVE_BIRTHS") & (raw.UNIT_MEASURE == "BR")],
                        "NACIMIENTOS", 1, "TOTAL"))
     salida = []
+    if existe_vigente("OECD", "participacion_edad_sexo"):
+        # promedio OCDE por sexo y edad: insumo del supuesto C (convergencia), sólo comparación internacional
+        raw, meta = leer_vigente("OECD", "participacion_edad_sexo")
+        edades = {"Y15T24": "15-24", "Y25T54": "25-54", "Y55T64": "55-64"}
+        r = raw[(raw.REF_AREA == "OECD") & raw.SEX.isin(["M", "F"]) & raw.AGE.isin(edades)]
+        ds = "OECD/participacion_edad_sexo/TASA_PARTICIPACION"
+        df = pd.DataFrame({"anio": pd.to_numeric(r["TIME_PERIOD"].str[:4]), "cod_territorio": "OED",
+                           "cod_sexo": r["SEX"].map({"M": "H", "F": "M"}), "cod_edad": r["AGE"].map(edades),
+                           "cod_indicador": "TASA_PARTICIPACION", "valor": reglas.a_numero(r["OBS_VALUE"]),
+                           "etiqueta_original": r["Measure"]})
+        ctl.contar("silver", ds, "filtro de la serie relevante del dataflow", int(meta["filas"]), len(df))
+        df = _completar(df, {**meta, "tbl_id": meta["params"].get("dataflow")}, ds, "observado")
+        salida.append(reglas.aceptar(df, ds, ctl))
     for nombre, meta, r, ind, factor, edad in partes:
         ds = f"OECD/{nombre}/{ind}"
         df = pd.DataFrame({"anio": pd.to_numeric(r["TIME_PERIOD"].str[:4]), "cod_territorio": _territorio_pais(r["REF_AREA"]),

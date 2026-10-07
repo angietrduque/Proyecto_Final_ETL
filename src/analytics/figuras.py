@@ -196,18 +196,25 @@ def fuerza_laboral(d):
     banda = t.xs("A_constante", level="cod_supuesto").unstack("cod_escenario").agg(["min", "max"], axis=1)
     ax.fill_between(banda.index, banda["min"], banda["max"], color=GRIS_CLARO, lw=0,
                     label="Supuesto A en los 29 escenarios de población")
+    finales = {}
     for sup, c, n in (("A_constante", ROJO, "A · participación constante"), ("B_tendencia", AZUL, "B · tendencia 2015-2025"),
-                      ("C_brecha_genero", AMBAR, "C · cierre 50 % brecha de género")):
+                      ("C_convergencia_ocde", VERDE, "C · convergencia al promedio OCDE"),
+                      ("D_brecha_genero", AMBAR, "D · cierre 50 % brecha de género")):
         s = t.loc[("medio", sup)]
         ax.plot(s.index, s.values, color=c, ls="--", label=n)
-        dy = {"B_tendencia": 0.7, "C_brecha_genero": -0.5}.get(sup, 0)
-        ax.text(2073, s.iloc[-1] + dy, f"{sup[0]}: {s.iloc[-1]:.1f} M", color=TINTA, fontsize=9, va="center")
+        finales[sup] = s.iloc[-1]
+    # etiquetas finales separadas al menos 0,9 M para que no se monten
+    y_prev = None
+    for sup, y in sorted(finales.items(), key=lambda kv: kv[1]):
+        y_txt = y if y_prev is None else max(y, y_prev + 0.9)
+        ax.text(2073, y_txt, f"{sup[0]}: {y:.1f} M", color=TINTA, fontsize=9, va="center")
+        y_prev = y_txt
     ax.set_xlim(1998, 2080)
     ax.set_ylim(0, 35)
     ax.set_ylabel("Millones de personas")
     ax.set_title("Fuerza laboral potencial: escenarios propios sobre la población proyectada", loc="left")
     ax.legend(loc="lower left", fontsize=9)
-    _fuente(ax, "Escenario propio del equipo (no es pronóstico): Σ población KOSTAT (sexo × edad) × tasa de participación supuesta.")
+    _fuente(ax, "Escenario propio del equipo (no es pronóstico): Σ población KOSTAT (sexo × edad) × cobertura EAPS × tasa de participación supuesta.")
     return _guardar(fig, "06_fuerza_laboral_escenarios")
 
 

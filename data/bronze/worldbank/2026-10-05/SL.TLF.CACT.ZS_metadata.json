@@ -1,0 +1,33 @@
+{
+  "fuente": "WB",
+  "dataset": "SL.TLF.CACT.ZS",
+  "tabla_fuente": "SL.TLF.CACT.ZS",
+  "tbl_id": null,
+  "rol": "comparacion",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://api.worldbank.org/v2/country/KOR;JPN;USA;DEU;ITA;ESP;FRA;CHN;OED/indicator/SL.TLF.CACT.ZS",
+    "format": "json",
+    "date": "2000:2025",
+    "per_page": 20000
+  },
+  "fecha_extraccion": "2026-10-05",
+  "fecha_ingesta": "2026-10-05T22:52:22-05:00",
+  "archivo_crudo": "SL.TLF.CACT.ZS.json",
+  "sha256_crudo": "10cdb67fc1253595e3022c5992b4017d8715f99948f628bb1c562036401ad968",
+  "version": "10cdb67fc125",
+  "filas": 234,
+  "columnas": 8,
+  "encabezados": [
+    "indicator_id",
+    "indicator",
+    "countryiso3code",
+    "country",
+    "date",
+    "value",
+    "obs_status",
+    "lastupdated"
+  ],
+  "metadata_declarada_por_archivo": {}
+}

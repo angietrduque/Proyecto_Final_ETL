@@ -12,7 +12,7 @@
     "lector": "xlsx_kosis"
   },
   "fecha_extraccion": "2026-10-03",
-  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:26-05:00",
   "archivo_crudo": "Live_Births_and_Deaths_by_administrative_districts_20261003100249.xlsx",
   "sha256_crudo": "1f334f84a669a1124cffd6ccecf4e330a71e86eb52d92326e25037c0b044307e",
   "version": "1f334f84a669",

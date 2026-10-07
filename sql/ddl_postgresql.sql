@@ -138,6 +138,7 @@ CREATE TABLE gold.dataset_nacional_anual (
 	"FLP_A" FLOAT, 
 	"FLP_B" FLOAT, 
 	"FLP_C" FLOAT, 
+	"FLP_D" FLOAT, 
 	"PIB_HORA" FLOAT, 
 	periodo TEXT, 
 	PRIMARY KEY (anio, cod_territorio), 
@@ -223,6 +224,20 @@ CREATE TABLE gold.fact_conciliacion (
 	tipo_comparacion TEXT
 );
 
+CREATE TABLE gold.fact_escenarios_sensibilidad (
+	cod_supuesto TEXT NOT NULL, 
+	variante TEXT NOT NULL, 
+	es_base BOOLEAN, 
+	fuerza_laboral_2025 FLOAT, 
+	fuerza_laboral_2050 FLOAT, 
+	var_2050_pct FLOAT, 
+	var_2072_pct FLOAT, 
+	tipo_dato TEXT, 
+	PRIMARY KEY (cod_supuesto, variante), 
+	FOREIGN KEY(cod_supuesto) REFERENCES gold.dim_supuesto (cod_supuesto), 
+	FOREIGN KEY(tipo_dato) REFERENCES gold.dim_tipo_dato (tipo_dato)
+);
+
 CREATE TABLE gold.fact_fuerza_laboral_escenario (
 	anio BIGINT NOT NULL, 
 	cod_escenario TEXT NOT NULL, 
@@ -231,6 +246,7 @@ CREATE TABLE gold.fact_fuerza_laboral_escenario (
 	poblacion_proyectada FLOAT, 
 	tasa_participacion FLOAT, 
 	cod_supuesto TEXT NOT NULL, 
+	factor_cobertura FLOAT, 
 	fuerza_laboral_potencial FLOAT, 
 	tipo_dato TEXT, 
 	fuerza_laboral_total_anio FLOAT, 
@@ -317,6 +333,19 @@ CREATE TABLE gold.fact_riesgo_regional (
 	tipo_dato TEXT, 
 	nota TEXT, 
 	PRIMARY KEY (cod_territorio), 
+	FOREIGN KEY(cod_territorio) REFERENCES gold.dim_territorio (cod_territorio), 
+	FOREIGN KEY(tipo_dato) REFERENCES gold.dim_tipo_dato (tipo_dato)
+);
+
+CREATE TABLE gold.fact_riesgo_sensibilidad (
+	esquema TEXT NOT NULL, 
+	descripcion TEXT, 
+	cod_territorio TEXT NOT NULL, 
+	indice FLOAT, 
+	ranking BIGINT, 
+	en_top5 BOOLEAN, 
+	tipo_dato TEXT, 
+	PRIMARY KEY (esquema, cod_territorio), 
 	FOREIGN KEY(cod_territorio) REFERENCES gold.dim_territorio (cod_territorio), 
 	FOREIGN KEY(tipo_dato) REFERENCES gold.dim_tipo_dato (tipo_dato)
 );

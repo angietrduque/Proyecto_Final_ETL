@@ -1,0 +1,39 @@
+{
+  "fuente": "OECD",
+  "dataset": "fuerza_laboral",
+  "tabla_fuente": "OECD.SDD.TPS,DSD_ALFS@DF_SUMTAB,1.0",
+  "tbl_id": null,
+  "rol": "contraste",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_ALFS@DF_SUMTAB,1.0/KOR+JPN+USA+DEU+ITA+ESP+FRA.LF+EMP+UNE_LF.......A",
+    "startPeriod": 2000,
+    "format": "csvfilewithlabels",
+    "dataflow": "OECD.SDD.TPS,DSD_ALFS@DF_SUMTAB,1.0",
+    "clave": "KOR+JPN+USA+DEU+ITA+ESP+FRA.LF+EMP+UNE_LF.......A"
+  },
+  "fecha_extraccion": "2026-10-05",
+  "fecha_ingesta": "2026-10-05T22:52:25-05:00",
+  "archivo_crudo": "fuerza_laboral.csv",
+  "sha256_crudo": "016370cc47b1ea1b5722b3d4798ac57d2829ca675d7d2cdc51b8657b4345e65b",
+  "version": "016370cc47b1",
+  "filas": 4282,
+  "columnas": 34,
+  "encabezados": [
+    "STRUCTURE",
+    "STRUCTURE_ID",
+    "STRUCTURE_NAME",
+    "ACTION",
+    "REF_AREA",
+    "Reference area",
+    "MEASURE",
+    "Measure",
+    "UNIT_MEASURE",
+    "Unit of measure",
+    "TRANSFORMATION",
+    "Transformation",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

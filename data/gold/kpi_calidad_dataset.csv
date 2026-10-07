@@ -4,6 +4,7 @@ OECD/fecundidad/TFR,173,173,0,0.0,100.0,0.0,100.0,True,True
 OECD/fuerza_laboral/OCUPADOS,181,181,0,0.0,100.0,0.0,100.0,True,True
 OECD/fuerza_laboral/POB_ACTIVA,181,181,0,0.0,100.0,0.0,100.0,True,True
 OECD/fuerza_laboral/TASA_DESEMPLEO,181,181,0,0.0,100.0,0.0,100.0,True,True
+OECD/participacion_edad_sexo/TASA_PARTICIPACION,84,84,0,0.0,100.0,0.0,100.0,True,True
 OECD/productividad/PIB_HORA,182,182,0,0.0,100.0,0.0,100.0,True,True
 WB/SL.GDP.PCAP.EM.KD,234,234,0,0.0,100.0,0.0,100.0,True,True
 WB/SL.TLF.CACT.ZS,234,234,0,0.0,100.0,0.0,100.0,True,True

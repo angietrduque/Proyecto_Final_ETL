@@ -1,0 +1,120 @@
+﻿esquema,descripcion,cod_territorio,indice,ranking,en_top5,tipo_dato
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,11,0.2675073457718172,8,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,21,0.9836434664428557,1,True,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,22,0.5802699098339911,2,True,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,23,-0.19942145400854128,11,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,24,-0.050914088632963504,10,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,25,-0.30347547051555446,14,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,26,0.205083365021974,9,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,29,-2.1923907887640985,17,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,31,-0.4134602935526699,15,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,32,0.37885571150502767,6,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,33,-0.22935877330701607,12,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,34,-0.24370119949644245,13,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,35,0.5107747377954405,4,True,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,36,0.336883943567392,7,False,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,37,0.5208127141500788,3,True,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,38,0.3988121883241827,5,True,inferencia_propia
+base_6z,Esquema base · 6 componentes estandarizados (z) con peso igual,39,-0.5499213141354705,16,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,11,68.02887874544948,6,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,21,81.965746872887,1,True,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,22,67.75509007778494,7,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,23,50.505631986308906,15,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,24,58.0923764772344,9,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,25,53.6207505600746,12,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,26,52.483826014814156,13,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,29,1.785714285714293,17,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,31,44.88872919805189,16,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,32,72.38868370898344,4,True,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,33,56.16993188545504,11,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,34,57.357684673619445,10,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,35,78.18787415987713,2,True,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,36,71.81644257863456,5,True,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,37,76.99016250820102,3,True,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,38,67.71845623140159,8,False,inferencia_propia
+cuatro_minmax,Índice del repositorio de Miguel · 4 componentes con mínimo-máximo,39,51.89267234505128,14,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),11,0.3144731661863254,7,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),21,1.031270107927524,1,True,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),22,0.5397144318839797,2,True,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),23,-0.14566819165646488,11,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),24,-0.144259366784958,10,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),25,-0.3918341455960513,15,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),26,0.042529736161225,9,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),29,-1.9360776226206062,17,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),31,-0.3673015565563269,14,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),32,0.4706050857832108,5,True,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),33,-0.23350252138650734,13,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),34,-0.21542650174604172,12,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),35,0.5091987580981174,3,True,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),36,0.31508986324623833,6,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),37,0.499828502559269,4,True,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),38,0.3067825496084375,8,False,inferencia_propia
+situacion_actual,Sólo la situación de 2025 (sin la proyección a 2052),39,-0.5954222951073668,16,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,11,0.03267824369927586,10,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,21,0.7455102590195144,4,True,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,22,0.7830472995840481,3,True,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,23,-0.4681877657689233,15,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,24,0.4158123021270089,8,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,25,0.13831790488692972,9,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,26,1.017851509325719,1,True,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,29,-3.473956619481558,17,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,31,-0.6442539785343846,16,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,32,-0.07989115988588824,11,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,33,-0.20864003290955957,12,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,34,-0.3850746882484461,14,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,35,0.5186546362820551,6,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,36,0.4458543451731601,7,False,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,37,0.6257337721041278,5,True,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,38,0.8589603819029087,2,True,inferencia_propia
+solo_proyeccion,Sólo la caída proyectada de la población 15-64 a 2052,39,-0.32241640927598914,13,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,11,0.11019856826059779,8,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,21,0.9567918368464962,1,True,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,22,0.4421613809439545,6,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,23,-0.3320067505555102,13,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,24,-0.2310076516081282,12,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,25,-0.4023778346063298,14,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,26,-0.04495330967765809,9,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,29,-2.1976482745298007,17,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,31,-0.5603318646035764,16,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,32,0.5880805129376766,5,True,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,33,-0.12050772614108017,10,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,34,-0.13013667371171828,11,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,35,0.6674607140399564,4,True,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,36,0.6822299920381292,3,True,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,37,0.7247908129843612,2,True,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,38,0.3756682827368837,7,False,inferencia_propia
+envejecimiento_doble,Doble peso a envejecimiento y dependencia,39,-0.5284120153542535,15,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,11,0.42907690393870274,4,True,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,21,0.9446155911243567,1,True,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,22,0.5426371898884603,2,True,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,23,-0.0431535057027323,11,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,24,-0.028666658490201016,10,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,25,-0.34761053809356124,15,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,26,0.21679877423628657,8,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,29,-2.25136208063096,17,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,31,-0.26575505463742155,13,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,32,0.31962935035971163,7,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,33,-0.22899444890630327,12,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,34,-0.2685176506258456,14,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,35,0.4189864869106097,5,True,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,36,0.1302185757360848,9,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,37,0.4314240885573435,3,True,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,38,0.3946938402111169,6,False,inferencia_propia
+natalidad_doble,Doble peso a fecundidad y reemplazo laboral,39,-0.3940208638756489,16,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),11,55.88235294117647,9,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),21,82.3529411764706,1,True,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),22,71.5686274509804,3,True,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),23,45.09803921568627,12,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),24,49.01960784313726,10,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),25,46.078431372549026,11,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),26,58.8235294117647,8,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),29,11.76470588235294,17,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),31,31.372549019607835,16,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),32,62.745098039215684,7,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),33,41.1764705882353,13,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),34,38.23529411764706,14,False,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),35,64.70588235294117,5,True,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),36,64.70588235294117,5,True,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),37,66.66666666666667,4,True,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),38,72.54901960784314,2,True,inferencia_propia
+percentil_6,6 componentes con normalización por percentil (no depende de valores extremos),39,37.254901960784316,15,False,inferencia_propia

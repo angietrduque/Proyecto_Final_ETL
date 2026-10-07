@@ -12,7 +12,7 @@
     "lector": "csv_doble"
   },
   "fecha_extraccion": "2026-10-01",
-  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:27-05:00",
   "archivo_crudo": "eaps_nacional_sexo_edad_2000_2025.csv",
   "sha256_crudo": "f5f97a6941b1b0751de647aa1604eebb71bbdc02e11c7f36d794e6b4acac8005",
   "version": "f5f97a6941b1",

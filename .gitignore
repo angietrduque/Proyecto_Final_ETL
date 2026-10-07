@@ -10,8 +10,6 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Datos generados (se reconstruyen con `python main.py`)
-data/bronze/worldbank/
-data/bronze/oecd/
 data/bronze/unwpp/
 data/silver/
 data/gold/*.parquet
@@ -25,6 +23,8 @@ logs/*.txt
 #                         sin estos archivos nadie podría reproducir la ingesta)
 #   data/bronze/kosis/    copia inmutable + metadata de esas descargas
 #   data/gold/*.csv       datasets consolidados y dimensiones para Power BI
+#   data/bronze/worldbank/ y data/bronze/oecd/  últimas respuestas de las API, para que `python main.py --sin-api`
+#                         funcione en un clon nuevo (observación del repositorio de Miguel)
 
 # Power BI
 *.pbix.bak

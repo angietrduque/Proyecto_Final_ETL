@@ -1,0 +1,39 @@
+{
+  "fuente": "OECD",
+  "dataset": "fecundidad",
+  "tabla_fuente": "OECD.CFE.EDS,DSD_REG_DEMO@DF_FERTILITY,2.4",
+  "tbl_id": null,
+  "rol": "contraste",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CFE.EDS,DSD_REG_DEMO@DF_FERTILITY,2.4/A.CTRY.KOR+JPN+USA+DEU+ITA+ESP+FRA..FERT_RATIO+LIVE_BIRTHS...",
+    "startPeriod": 2000,
+    "format": "csvfilewithlabels",
+    "dataflow": "OECD.CFE.EDS,DSD_REG_DEMO@DF_FERTILITY,2.4",
+    "clave": "A.CTRY.KOR+JPN+USA+DEU+ITA+ESP+FRA..FERT_RATIO+LIVE_BIRTHS..."
+  },
+  "fecha_extraccion": "2026-10-05",
+  "fecha_ingesta": "2026-10-05T22:52:25-05:00",
+  "archivo_crudo": "fecundidad.csv",
+  "sha256_crudo": "acf0f55bb6f831ecb84964f97777969447e077b5946b676fad11a82b91366c7b",
+  "version": "acf0f55bb6f8",
+  "filas": 1381,
+  "columnas": 32,
+  "encabezados": [
+    "STRUCTURE",
+    "STRUCTURE_ID",
+    "STRUCTURE_NAME",
+    "ACTION",
+    "FREQ",
+    "Frequency of observation",
+    "TERRITORIAL_LEVEL",
+    "Territorial level",
+    "REF_AREA",
+    "Reference area",
+    "TERRITORIAL_TYPE",
+    "Territorial typology",
+    "..."
+  ],
+  "metadata_declarada_por_archivo": {}
+}

@@ -12,7 +12,7 @@
     "lector": "csv_doble"
   },
   "fecha_extraccion": "2026-10-01",
-  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:26-05:00",
   "archivo_crudo": "estadisticas_vitales_sido_2000_2025.csv",
   "sha256_crudo": "6f0f5d10cb72824a3f807c2e8a1ba808a3422722a6ded1ee164dd4a5a56d3388",
   "version": "6f0f5d10cb72",

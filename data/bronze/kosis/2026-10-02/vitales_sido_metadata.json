@@ -12,7 +12,7 @@
     "lector": "xlsx_kosis"
   },
   "fecha_extraccion": "2026-10-02",
-  "fecha_ingesta": "2026-10-05T22:52:18-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:26-05:00",
   "archivo_crudo": "Vital_statistics_for_Provinces__Number_and_Rate__20261002101214.xlsx",
   "sha256_crudo": "8b9281f3c3c2c9ec0cebda351aa9dc1a339fd4878bc8ee852eba5a22a1c693f3",
   "version": "8b9281f3c3c2",

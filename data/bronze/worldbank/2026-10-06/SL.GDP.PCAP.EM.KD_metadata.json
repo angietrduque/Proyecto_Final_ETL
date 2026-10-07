@@ -1,0 +1,33 @@
+{
+  "fuente": "WB",
+  "dataset": "SL.GDP.PCAP.EM.KD",
+  "tabla_fuente": "SL.GDP.PCAP.EM.KD",
+  "tbl_id": null,
+  "rol": "comparacion",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://api.worldbank.org/v2/country/KOR;JPN;USA;DEU;ITA;ESP;FRA;CHN;OED/indicator/SL.GDP.PCAP.EM.KD",
+    "format": "json",
+    "date": "2000:2025",
+    "per_page": 20000
+  },
+  "fecha_extraccion": "2026-10-06",
+  "fecha_ingesta": "2026-10-06T20:02:11-05:00",
+  "archivo_crudo": "SL.GDP.PCAP.EM.KD.json",
+  "sha256_crudo": "9394ace42ad548ba88e304b1fde4f50d1ef87c078fbd7465cafb5b61b6879e7f",
+  "version": "9394ace42ad5",
+  "filas": 234,
+  "columnas": 8,
+  "encabezados": [
+    "indicator_id",
+    "indicator",
+    "countryiso3code",
+    "country",
+    "date",
+    "value",
+    "obs_status",
+    "lastupdated"
+  ],
+  "metadata_declarada_por_archivo": {}
+}

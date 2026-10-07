@@ -12,7 +12,7 @@
     "lector": "csv_doble"
   },
   "fecha_extraccion": "2026-10-01",
-  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:27-05:00",
   "archivo_crudo": "eaps_sido_anual_2000_2025.csv",
   "sha256_crudo": "812b64f0cd4aeb912ee482929845644dccc2241c7f1614efe4425c06067c1a25",
   "version": "812b64f0cd4a",

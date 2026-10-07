@@ -1,0 +1,33 @@
+{
+  "fuente": "WB",
+  "dataset": "SP.DYN.TFRT.IN",
+  "tabla_fuente": "SP.DYN.TFRT.IN",
+  "tbl_id": null,
+  "rol": "contraste_y_comparacion",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://api.worldbank.org/v2/country/KOR;JPN;USA;DEU;ITA;ESP;FRA;CHN;OED/indicator/SP.DYN.TFRT.IN",
+    "format": "json",
+    "date": "2000:2025",
+    "per_page": 20000
+  },
+  "fecha_extraccion": "2026-10-06",
+  "fecha_ingesta": "2026-10-06T20:02:04-05:00",
+  "archivo_crudo": "SP.DYN.TFRT.IN.json",
+  "sha256_crudo": "c68edfcfda97bb38c7af06c5ffc471725e6cd8ee7958c3c21197d753557232a5",
+  "version": "c68edfcfda97",
+  "filas": 234,
+  "columnas": 8,
+  "encabezados": [
+    "indicator_id",
+    "indicator",
+    "countryiso3code",
+    "country",
+    "date",
+    "value",
+    "obs_status",
+    "lastupdated"
+  ],
+  "metadata_declarada_por_archivo": {}
+}

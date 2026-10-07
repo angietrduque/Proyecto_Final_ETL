@@ -258,8 +258,12 @@ display(Image(str(F/'08_riesgo_regional.png')))"""),
     code("""t = fl.groupby(['cod_escenario','cod_supuesto','anio']).fuerza_laboral_potencial.sum().unstack('anio')[[2025,2035,2050,2072]]/1e6
 display(t.loc[['medio','fecundidad_baja','fecundidad_alta','migracion_cero','migracion_alta','envejecimiento_rapido']].round(2))
 display(Image(str(F/'06_fuerza_laboral_escenarios.png')))"""),
-    md("Incluso con supuestos optimistas de participación (B) o de cierre de la brecha de género (C), la fuerza laboral "
-       "potencial cae después de 2035: el efecto demográfico domina. La migración es la palanca con mayor efecto en el corto plazo."),
+    md("Supuestos: **A** constante · **B** tendencia 2015-2025 · **C** convergencia al promedio OCDE · **D** cierre del 50 % de la "
+       "brecha de género (C y D, aportes del Avance 2 y del repositorio de Miguel). Incluso con B o D la fuerza laboral potencial "
+       "cae después de 2035: el efecto demográfico domina. La migración es la palanca con mayor efecto en el corto plazo."),
+    md("**Sensibilidad:** cada fila cambia un parámetro de un supuesto y recalcula la variación 2025 → 2050 (escenario medio)."),
+    code("""s = pd.read_parquet(GOLD/'fact_escenarios_sensibilidad.parquet')
+display(s[['cod_supuesto','variante','var_2050_pct','var_2072_pct']].round(1))"""),
     md("## P7 · Envejecimiento, empleo y productividad *(observado; asociación, no causalidad)*"),
     code("display(Image(str(F/'10_productividad_envejecimiento.png')))"),
     md("## P8 · Señales tempranas de escasez laboral *(cálculo sobre estimado + proyección)*"),
@@ -269,9 +273,12 @@ display(Image(str(F/'06_fuerza_laboral_escenarios.png')))"""),
     md("""## P10 · Información para política pública
 - **Natalidad:** aun si la TFR se recuperara (escenario fecundidad alta), los nacidos después de 2025 no entran a la
   edad laboral antes de 2040: el efecto sobre la fuerza laboral de 2050 es pequeño (≈ 1,3 pp en la población 15-64).
-- **Participación:** el mayor margen está en mujeres (brecha de 16 pp) y en personas de 60+ (supuestos B y C).
+- **Participación:** el mayor margen está en mujeres (brecha de 16 pp) y en personas de 60+ (supuestos B y D).
 - **Migración:** pasar de migración cero a alta cambia la población 15-64 de 2050 en ≈ 8 pp.
 - **Territorio:** Busan, Daegu y Gyeongsang concentran el mayor riesgo; Sejong y Gyeonggi el menor."""),
+    md("**Robustez del índice regional:** veces que cada si-do queda en el top 5 con los 7 esquemas de ponderación."),
+    code("""r = pd.read_parquet(GOLD/'fact_riesgo_sensibilidad.parquet').merge(pd.read_parquet(GOLD/'dim_territorio.parquet')[['cod_territorio','nombre_es']])
+display(r[r.en_top5].groupby('nombre_es').esquema.nunique().sort_values(ascending=False).rename('esquemas en el top 5'))"""),
 ]
 
 # ============================================================================================ 04 VALIDACIÓN

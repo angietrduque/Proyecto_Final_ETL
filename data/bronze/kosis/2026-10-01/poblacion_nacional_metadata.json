@@ -12,7 +12,7 @@
     "lector": "csv_ancho"
   },
   "fecha_extraccion": "2026-10-01",
-  "fecha_ingesta": "2026-10-05T22:52:19-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:27-05:00",
   "archivo_crudo": "poblacion_nacional_edad_sexo_2000_2072_medio.csv",
   "sha256_crudo": "5a3ab55adea17c3d9709be56194762530029effa6c3ec845cb1253be0e13a4b4",
   "version": "5a3ab55adea1",

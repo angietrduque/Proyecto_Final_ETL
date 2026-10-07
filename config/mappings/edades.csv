@@ -29,3 +29,5 @@ TOTAL,Todas las edades,0,,total,Total,0,
 60+,60 y más (EAPS),60,,eaps,,27,Grupo abierto de la EAPS
 15-24,15-24 (EAPS),15,24,eaps_agregado,15-64,28,
 15-29,15-29 (EAPS),15,29,eaps_agregado,15-64,29,
+25-54,25-54 (OCDE),25,54,eaps_agregado,15-64,30,Grupo publicado por la OCDE (participación)
+55-64,55-64 (OCDE),55,64,eaps_agregado,15-64,31,Grupo publicado por la OCDE (participación)

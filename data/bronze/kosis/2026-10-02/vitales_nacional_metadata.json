@@ -12,7 +12,7 @@
     "lector": "xlsx_kosis"
   },
   "fecha_extraccion": "2026-10-02",
-  "fecha_ingesta": "2026-10-05T22:52:17-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:25-05:00",
   "archivo_crudo": "Vital_Statistics_of_Korea_20261002100432.xlsx",
   "sha256_crudo": "7db493a6115822f1b44f6996fd9ea33c80a530a6722a2886d9b5909a56dbcc42",
   "version": "7db493a61158",

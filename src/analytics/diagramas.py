@@ -57,7 +57,7 @@ def arquitectura():
     ax.text(0.01, 0.11, "Separación de la naturaleza del dato (retroalimentación del profesor):", fontsize=11,
             fontweight="bold", color=TINTA)
     ax.text(0.01, 0.045, "observado  ·  estimado (≤2022)  ·  proyeccion_oficial (KOSTAT, sin modificar)  ·  calculado (fórmula del pipeline)"
-            "  ·  escenario_propio (supuestos A/B/C)  ·  inferencia_propia (índice regional)", fontsize=10, color=TINTA2)
+            "  ·  escenario_propio (supuestos A/B/C/D)  ·  inferencia_propia (índice regional)", fontsize=10, color=TINTA2)
     ax.text(0.01, 0.74, "Orquestación: main.py (CLI) · scheduler.py (librería schedule) · configuración única en config/config.yaml",
             fontsize=10, color=TINTA2)
     p = RAIZ / "docs" / "architecture" / "arquitectura_medallion.png"
@@ -87,7 +87,7 @@ def modelo():
             "dim_edad": (0.03, 0.08, ["cod_edad (PK) · edad_min/max", "tipo · grupo_funcional"]),
             "dim_indicador": (1.05, 0.66, ["cod_indicador (PK) · fórmula", "unidad · fuente maestra · aditivo"]),
             "dim_escenario": (1.05, 0.45, ["cod_escenario (PK) · familia", "supuestos fecundidad/EV/migración"]),
-            "dim_supuesto": (1.05, 0.27, ["cod_supuesto (PK) · A / B / C"]),
+            "dim_supuesto": (1.05, 0.27, ["cod_supuesto (PK) · A / B / C / D"]),
             "dim_tipo_dato": (1.05, 0.08, ["observado · estimado · calculado", "proyección · escenario · inferencia"])}
     for n, (x, y, l) in dims.items():
         _caja(ax, x, y, 0.40, 0.14, n, l, AZUL, tam=9.5)

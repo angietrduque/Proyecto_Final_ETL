@@ -8,6 +8,8 @@ Esquema estrella (claves en dim_*; hechos con granularidad declarada):
   fact_indicador_historico   anio × territorio × sexo × edad × indicador            (observado / estimado / calculado)
   fact_indicador_proyeccion  anio × territorio × sexo × edad × indicador × escenario (proyeccion_oficial / calculado)
   fact_fuerza_laboral_escenario  anio × escenario × supuesto × sexo × grupo EAPS     (escenario_propio)
+  fact_escenarios_sensibilidad   supuesto × variante de parámetro                     (escenario_propio)
+  fact_riesgo_sensibilidad       esquema de ponderación × si-do                       (inferencia_propia)
   fact_riesgo_regional       si-do (año de referencia)                               (inferencia_propia)
   fact_comparacion_internacional  anio × país × indicador                            (observado)
   fact_conciliacion          pares maestra-contraste                                 (control de calidad)
@@ -171,67 +173,151 @@ def tasas_participacion(hist: pd.DataFrame) -> pd.DataFrame:
     return tp.pivot_table(index=["cod_sexo", "cod_edad"], columns="anio", values="valor")
 
 
-def supuestos_participacion(hist: pd.DataFrame, anios: list[int]) -> pd.DataFrame:
-    """Tasa de participación (sexo × grupo EAPS) para cada año del horizonte bajo los supuestos A, B y C."""
-    cfg = cargar_config()["escenarios_fuerza_laboral"]["supuestos"]
+def objetivo_ocde(internac: pd.DataFrame, cfg_c: dict, base: int) -> tuple[pd.Series, int | None]:
+    """Tasa objetivo del supuesto C por sexo × grupo EAPS, a partir de la participación del promedio OCDE por sexo y
+    edad (OECD DSD_LFS@DF_IALFS_LF_WAP_Q). Los grupos sin equivalencia (15-19 y 60+) no tienen objetivo."""
+    o = internac[(internac.cod_territorio == "OED") & (internac.cod_indicador == "TASA_PARTICIPACION")
+                 & internac.cod_sexo.isin(["H", "M"]) & internac.cod_edad.isin(["15-24", "25-54", "55-64"])
+                 & (internac.anio <= base) & (internac.fuente == "OECD")]
+    if o.empty:
+        return pd.Series(dtype=float), None
+    ultimo = int(o.anio.max())
+    ref = o[o.anio == ultimo].set_index(["cod_sexo", "cod_edad"]).valor
+    obj = {}
+    for sexo in ("H", "M"):
+        for grupo, pesos in cfg_c["equivalencias_ocde"].items():
+            if all((sexo, e) in ref.index for e in pesos):
+                obj[(sexo, grupo)] = sum(w * ref[(sexo, e)] for e, w in pesos.items())
+    return pd.Series(obj), ultimo
+
+
+def supuestos_participacion(hist: pd.DataFrame, anios: list[int], internac: pd.DataFrame,
+                            cfg: dict | None = None) -> pd.DataFrame:
+    """Tasa de participación (sexo × grupo EAPS) para cada año del horizonte bajo los supuestos A, B, C y D.
+    cfg permite reemplazar parámetros (análisis de sensibilidad)."""
+    cfg = cfg or cargar_config()["escenarios_fuerza_laboral"]["supuestos"]
     base = cargar_config()["periodo"]["anio_base_escenarios"]
     tp = tasas_participacion(hist)
     t0 = tp[base]
     filas = []
-    # B: pendiente lineal (MCO) 2015-2025, extrapolada hasta 2035 y luego constante; tope [0, 95] y ±10 pp
+    # B: pendiente lineal (MCO) 2015-2025, extrapolada hasta el horizonte y luego constante; tope [0, 95] y ±tope_pp
     b = cfg["B_tendencia"]
     x = np.arange(b["anios_tendencia"][0], b["anios_tendencia"][1] + 1)
     pend = tp[x].apply(lambda r: np.polyfit(x, r.values.astype(float), 1)[0], axis=1)
-    # C: cierre de la brecha de género
-    c = cfg["C_brecha_genero"]
+    # C: convergencia lineal al promedio OCDE (aporte del Avance 2); sin objetivo -> constante
+    c = cfg["C_convergencia_ocde"]
+    obj, _ = objetivo_ocde(internac, c, base)
+    meta_c = pd.Series({k: obj.get(k, t0[k]) for k in t0.index})
+    # D: cierre de una fracción de la brecha de género; nunca baja una tasa (si las mujeres ya participan más, no cambia)
+    d = cfg["D_brecha_genero"]
+    brecha = (t0.xs("H", level="cod_sexo") - t0.xs("M", level="cod_sexo")).clip(lower=0)
     for anio in anios:
-        a = t0
         dt = min(anio, b["horizonte_tendencia"]) - base
         bb = (t0 + pend * max(dt, 0)).clip(lower=t0 - b["tope_pp"], upper=t0 + b["tope_pp"]).clip(0, 95)
-        frac = min(max((anio - base) / (c["anio_meta"] - base), 0), 1) * c["fraccion_cierre"]
-        cc = t0.copy()
-        brecha = t0.xs("H", level="cod_sexo") - t0.xs("M", level="cod_sexo")
+        avance_c = min(max((anio - base) / (c["anio_convergencia"] - base), 0), 1)
+        cc = t0 + (meta_c - t0) * avance_c
+        frac = min(max((anio - base) / (d["anio_meta"] - base), 0), 1) * d["fraccion_cierre"]
+        dd = t0.copy()
         for edad, gap in brecha.items():
-            cc.loc[("M", edad)] = t0.loc[("M", edad)] + frac * gap
-        for cod, serie in (("A_constante", a), ("B_tendencia", bb), ("C_brecha_genero", cc)):
+            dd.loc[("M", edad)] = t0.loc[("M", edad)] + frac * gap
+        for cod, serie in (("A_constante", t0), ("B_tendencia", bb), ("C_convergencia_ocde", cc), ("D_brecha_genero", dd)):
             filas.append(serie.rename("tasa_participacion").reset_index().assign(anio=anio, cod_supuesto=cod))
     return pd.concat(filas, ignore_index=True)
 
 
-def fact_fuerza_laboral(hist: pd.DataFrame, proy: pd.DataFrame, ctl: Control) -> pd.DataFrame:
-    """Escenario propio: Fuerza laboral potencial = Σ población proyectada (sexo, edad) × tasa de participación supuesta.
-    Ejercicio contable transparente, NO un pronóstico. Se reporta también como índice 2025 = 100 para aislar el
-    efecto demográfico del nivel absoluto."""
-    base = cargar_config()["periodo"]["anio_base_escenarios"]
+def poblacion_eaps(proy: pd.DataFrame) -> pd.DataFrame:
+    """Población proyectada KOSTAT (nacional, por escenario) agregada a los grupos de edad de la EAPS."""
     nac = proy[(proy.cod_territorio == "00") & (proy.cod_indicador == "POBLACION") & proy.cod_sexo.isin(["H", "M"])
                & proy.cod_edad.isin(EAPS_GRUPO) & (proy.edicion_proyeccion == "KOSTAT 2022-2072") & (proy.tipo_dato != "calculado")]
     nac = nac.assign(grupo_eaps=nac.cod_edad.map(EAPS_GRUPO))
     pob = nac.groupby(["anio", "cod_escenario", "cod_sexo", "grupo_eaps"], as_index=False)["valor"].sum()
-    pob = pob.rename(columns={"valor": "poblacion_proyectada", "grupo_eaps": "cod_edad"})
+    return pob.rename(columns={"valor": "poblacion_proyectada", "grupo_eaps": "cod_edad"})
+
+
+def factor_cobertura(hist: pd.DataFrame, pob: pd.DataFrame, base: int) -> pd.DataFrame:
+    """La EAPS cubre la población civil no institucional (sin militares ni personas en instituciones), menor que la
+    población total de KOSTAT. Factor por sexo y grupo = población 15+ de la EAPS / población KOSTAT en el año base.
+    Es un ajuste de escala (idea del repositorio de Miguel): hace que 2025 coincida por construcción."""
+    eaps = hist[(hist.cod_indicador == "POB_15MAS") & (hist.cod_territorio == "00") & (hist.anio == base)
+                & hist.cod_sexo.isin(["H", "M"])].set_index(["cod_sexo", "cod_edad"]).valor
+    k = pob[(pob.anio == base) & (pob.cod_escenario == "medio")].set_index(["cod_sexo", "cod_edad"]).poblacion_proyectada
+    return (eaps / k).rename("factor_cobertura").dropna().reset_index()
+
+
+def _flp(pob: pd.DataFrame, sup: pd.DataFrame, fac: pd.DataFrame) -> pd.DataFrame:
+    f = pob.merge(sup, on=["anio", "cod_sexo", "cod_edad"], how="left").merge(fac, on=["cod_sexo", "cod_edad"], how="left")
+    f["factor_cobertura"] = f.factor_cobertura.fillna(1.0)
+    f["fuerza_laboral_potencial"] = f.poblacion_proyectada * f.factor_cobertura * f.tasa_participacion / 100
+    return f
+
+
+def fact_fuerza_laboral(hist: pd.DataFrame, proy: pd.DataFrame, internac: pd.DataFrame, ctl: Control) -> pd.DataFrame:
+    """Escenario propio: Fuerza laboral potencial = Σ población proyectada (sexo, edad) × factor de cobertura EAPS ×
+    tasa de participación supuesta. Ejercicio contable transparente, NO un pronóstico. Se reporta también como índice
+    2025 = 100 para aislar el efecto demográfico del nivel absoluto."""
+    base = cargar_config()["periodo"]["anio_base_escenarios"]
+    pob = poblacion_eaps(proy)
     anios = sorted(pob.anio.unique())
-    sup = supuestos_participacion(hist, anios)
-    f = pob.merge(sup, on=["anio", "cod_sexo", "cod_edad"], how="left")
-    f["fuerza_laboral_potencial"] = f.poblacion_proyectada * f.tasa_participacion / 100
+    sup = supuestos_participacion(hist, anios, internac)
+    fac = factor_cobertura(hist, pob, base)
+    f = _flp(pob, sup, fac)
     f["tipo_dato"] = "escenario_propio"
     f["fuerza_laboral_total_anio"] = f.groupby(["anio", "cod_escenario", "cod_supuesto"])["fuerza_laboral_potencial"].transform("sum")
     ref = (f[f.anio == base].groupby(["cod_escenario", "cod_supuesto"])["fuerza_laboral_potencial"].sum()
            .rename("fuerza_laboral_total_base").reset_index())
     f = f.merge(ref, on=["cod_escenario", "cod_supuesto"], how="left")
     f["indice_base_2025"] = f.fuerza_laboral_total_anio / f.fuerza_laboral_total_base * 100
-    # Calibración: el modelo en el año base frente a la población activa observada en la EAPS 2025
+    # Ajuste de escala: diferencia SIN el factor de cobertura (la que justifica el ajuste) y CON el factor (≈ 0 por construcción)
     obs = hist[(hist.cod_indicador == "POB_ACTIVA") & (hist.cod_territorio == "00") & (hist.cod_sexo == "T")
                & (hist.cod_edad == "15+") & (hist.anio == base)]["valor"]
-    mod = f[(f.anio == base) & (f.cod_escenario == "medio") & (f.cod_supuesto == "A_constante")].fuerza_laboral_potencial.sum()
+    sel = f[(f.anio == base) & (f.cod_escenario == "medio") & (f.cod_supuesto == "A_constante")]
+    sin = (sel.poblacion_proyectada * sel.tasa_participacion / 100).sum()
+    con = sel.fuerza_laboral_potencial.sum()
     if len(obs):
-        dif = (mod - obs.iloc[0]) / obs.iloc[0] * 100
-        ctl.validar("gold.fact_fuerza_laboral_escenario", "calibracion_anio_base", "consistencia", int(abs(dif) > 5), 1,
-                    abs(dif) <= 5, f"modelo 2025 = {mod:,.0f} vs PEA observada EAPS 2025 = {obs.iloc[0]:,.0f} "
-                                   f"(dif. {dif:+.2f} %); diferencia por universo (población total vs civil no institucional)")
+        o = obs.iloc[0]
+        d_sin, d_con = (sin - o) / o * 100, (con - o) / o * 100
+        ctl.validar("gold.fact_fuerza_laboral_escenario", "ajuste_cobertura_eaps", "consistencia", int(abs(d_sin) > 5), 1,
+                    abs(d_sin) <= 5 and abs(d_con) <= 0.5,
+                    f"PEA observada EAPS 2025 = {o:,.0f}; modelo sin ajuste {sin:,.0f} (dif. {d_sin:+.2f} %); con factor de "
+                    f"cobertura {con:,.0f} (dif. {d_con:+.2f} %): la diferencia sin ajuste es de universo (población total vs "
+                    "civil no institucional), no un error del modelo")
     falta = f.tasa_participacion.isna()
     ctl.validar("gold.fact_fuerza_laboral_escenario", "tasas_disponibles", "completitud", int(falta.sum()), len(f),
                 not falta.any(), "todas las celdas sexo × edad tienen tasa de participación supuesta")
-    ctl.contar("gold", "fact_fuerza_laboral_escenario", "población proyectada × tasas supuestas (A, B, C)", len(pob), len(f))
+    nunca_baja = f[f.cod_supuesto == "D_brecha_genero"].merge(
+        f[f.cod_supuesto == "A_constante"][["anio", "cod_escenario", "cod_sexo", "cod_edad", "tasa_participacion"]],
+        on=["anio", "cod_escenario", "cod_sexo", "cod_edad"], suffixes=("", "_a"))
+    baja = nunca_baja.tasa_participacion < nunca_baja.tasa_participacion_a - 1e-9
+    ctl.validar("gold.fact_fuerza_laboral_escenario", "supuesto_D_no_baja_tasas", "consistencia", int(baja.sum()),
+                len(nunca_baja), not baja.any(), "cerrar la brecha de género nunca reduce una tasa de participación")
+    ctl.contar("gold", "fact_fuerza_laboral_escenario", "población proyectada × cobertura EAPS × tasas supuestas (A, B, C, D)",
+               len(pob), len(f))
     return f
+
+
+def fact_escenarios_sensibilidad(hist: pd.DataFrame, proy: pd.DataFrame, internac: pd.DataFrame) -> pd.DataFrame:
+    """Sensibilidad de los supuestos propios: cada variante reemplaza un parámetro y se recalcula la variación de la
+    fuerza laboral potencial 2025 → 2050 (escenario KOSTAT medio)."""
+    base = cargar_config()["periodo"]["anio_base_escenarios"]
+    cfg = cargar_config()["escenarios_fuerza_laboral"]
+    pob = poblacion_eaps(proy)
+    pob = pob[pob.cod_escenario == "medio"]
+    fac = factor_cobertura(hist, poblacion_eaps(proy), base)
+    anios = [base, 2050, 2072]
+    variantes = [(s, "base", {}) for s in cfg["supuestos"]] + [
+        (s, ", ".join(f"{k} = {v}" for k, v in cambio.items()), cambio)
+        for s, lista in cfg["sensibilidad"].items() for cambio in lista]
+    filas = []
+    for sup_cod, etiqueta, cambio in variantes:
+        c = {k: dict(v) for k, v in cfg["supuestos"].items()}
+        c[sup_cod].update(cambio)
+        t = _flp(pob[pob.anio.isin(anios)], supuestos_participacion(hist, anios, internac, c), fac)
+        t = t[t.cod_supuesto == sup_cod].groupby("anio").fuerza_laboral_potencial.sum()
+        filas.append({"cod_supuesto": sup_cod, "variante": etiqueta, "es_base": etiqueta == "base",
+                      "fuerza_laboral_2025": t[base], "fuerza_laboral_2050": t[2050],
+                      "var_2050_pct": (t[2050] / t[base] - 1) * 100, "var_2072_pct": (t[2072] / t[base] - 1) * 100,
+                      "tipo_dato": "escenario_propio"})
+    return pd.DataFrame(filas)
 
 
 def fact_riesgo_regional(hist: pd.DataFrame, proy: pd.DataFrame, ctl: Control) -> pd.DataFrame:
@@ -277,6 +363,37 @@ def fact_riesgo_regional(hist: pd.DataFrame, proy: pd.DataFrame, ctl: Control) -
     ctl.validar("gold.fact_riesgo_regional", "componentes_completos", "completitud", int(falt.sum()), len(comp),
                 not falt.any(), "los 17 si-do tienen los 6 componentes del índice")
     return comp.reset_index().rename(columns={"index": "cod_territorio"})
+
+
+SIGNO_RIESGO = {"tfr": -1, "prop_65mas": 1, "dep_vejez": 1, "tasa_participacion": -1, "ind_reemplazo_laboral": -1,
+                "var_pob_15_64_2052_pct": -1}
+
+
+def fact_riesgo_sensibilidad(riesgo: pd.DataFrame) -> pd.DataFrame:
+    """Robustez del índice regional: se recalcula el ranking con otros pesos y otras normalizaciones (la dirección de
+    cada componente no cambia). Incluye el índice de 4 componentes con mínimo-máximo del repositorio de Miguel."""
+    esquemas = cargar_config()["riesgo_regional"]["esquemas_sensibilidad"]
+    r = riesgo.set_index("cod_territorio")
+    filas = []
+    for nombre, e in esquemas.items():
+        pesos, norm = e["pesos"], e.get("normalizacion", "zscore")
+        partes = []
+        for comp, w in pesos.items():
+            x = SIGNO_RIESGO[comp] * r[comp]
+            if norm == "zscore":
+                z = (x - x.mean()) / x.std(ddof=0)
+            elif norm == "minmax":
+                z = (x - x.min()) / (x.max() - x.min()) * 100
+            else:   # percentil: no depende de valores extremos
+                z = x.rank(pct=True) * 100
+            partes.append(w * z)
+        indice = sum(partes) / sum(pesos.values())
+        rk = indice.rank(ascending=False, method="min").astype(int)
+        for cod in r.index:
+            filas.append({"esquema": nombre, "descripcion": e["descripcion"], "cod_territorio": cod,
+                          "indice": float(indice[cod]), "ranking": int(rk[cod]), "en_top5": bool(rk[cod] <= 5),
+                          "tipo_dato": "inferencia_propia"})
+    return pd.DataFrame(filas)
 
 
 def fact_internacional(silver: dict) -> pd.DataFrame:
@@ -363,9 +480,16 @@ def ejecutar(ctl: Control) -> dict[str, pd.DataFrame]:
     dims = dimensiones(silver)
     hist = fact_historico(silver, ctl)
     proy = fact_proyeccion(silver, ctl)
-    fl = fact_fuerza_laboral(hist, proy, ctl)
-    riesgo = fact_riesgo_regional(hist, proy, ctl)
     internac = fact_internacional(silver)
+    fl = fact_fuerza_laboral(hist, proy, internac, ctl)
+    riesgo = fact_riesgo_regional(hist, proy, ctl)
+    sens_esc = fact_escenarios_sensibilidad(hist, proy, internac)
+    sens_rg = fact_riesgo_sensibilidad(riesgo)
+    top = sens_rg[sens_rg.en_top5].groupby("cod_territorio").esquema.nunique()
+    nom = dict(zip(dims["dim_territorio"].cod_territorio, dims["dim_territorio"].nombre_es))
+    ctl.validar("gold.fact_riesgo_sensibilidad", "ranking_robusto", "consistencia", 0, len(sens_rg.esquema.unique()), True,
+                "si-do en el top 5 en todos los esquemas: " +
+                (", ".join(nom.get(c, c) for c in top[top == sens_rg.esquema.nunique()].index) or "ninguno"))
     sido = dims["dim_territorio"]
     regiones = sido[sido.tipo.isin(["sido", "agregado"])].cod_territorio.tolist()
     tablas = {**dims,
@@ -373,6 +497,8 @@ def ejecutar(ctl: Control) -> dict[str, pd.DataFrame]:
               "fact_indicador_proyeccion": proy,
               "fact_fuerza_laboral_escenario": fl,
               "fact_riesgo_regional": riesgo,
+              "fact_riesgo_sensibilidad": sens_rg,
+              "fact_escenarios_sensibilidad": sens_esc,
               "fact_comparacion_internacional": internac,
               "fact_conciliacion": pd.concat([silver["conciliacion"].assign(tipo_comparacion="dato publicado"),
                                               conciliar_derivados(hist, proy, ctl).assign(tipo_comparacion="fórmula del pipeline")],
@@ -381,7 +507,8 @@ def ejecutar(ctl: Control) -> dict[str, pd.DataFrame]:
               "dataset_regional_anual": dataset_consolidado(hist, proy, fl, internac, regiones)}
     for n, df in tablas.items():
         df.to_parquet(ruta("gold") / f"{n}.parquet", index=False)
-        if n.startswith("dataset_") or n.startswith("dim_") or n == "fact_riesgo_regional":
+        if n.startswith("dataset_") or n.startswith("dim_") or n in ("fact_riesgo_regional", "fact_riesgo_sensibilidad",
+                                                                       "fact_escenarios_sensibilidad"):
             df.to_csv(ruta("gold") / f"{n}.csv", index=False, encoding="utf-8-sig")
         log.info("[gold] %-32s %8d filas", n, len(df))
     return tablas

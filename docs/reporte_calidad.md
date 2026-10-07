@@ -1,7 +1,7 @@
 # Reporte de calidad del pipeline
 
-Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` ·
-2026-10-05 22:52 · versión del pipeline 2.0.0
+Generado automáticamente por `main.py` · ejecución `20261006_200124_521c9a` ·
+2026-10-06 20:02 · versión del pipeline 2.0.0
 
 > Este archivo se sobrescribe en cada ejecución. Las tablas completas están en `data/ctl/*.parquet`,
 > `data/gold/kpi_*.csv` y en la base SQL (`ctl_*`, `gold_kpi_*`).
@@ -14,10 +14,10 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | O1 | KR1.2 | Indicadores de natalidad y envejecimiento con fórmula única, validados contra KOSTAT | 6 indicadores · diferencia ≤ 1 % | 6 · 0.37 % | ✅ | dependencia (juvenil, vejez, total), índice de envejecimiento, % 15-64, % 65+ vs resumen oficial 2022-2072 |
 | O1 | KR1.3 | Brecha de Corea frente a la OCDE cuantificada | ≥ 5 países de comparación | 8 + Corea | ✅ | TFR Corea 0,80 vs OCDE 1,48: 46 % por debajo |
 | O2 | KR2.1 | Escenarios oficiales KOSTAT integrados sin modificar y separados del histórico | 100 % de registros con escenario y edición | 29 escenarios · 100 % | ✅ | 2023-2072 nacional y 2023-2052 provincial; el histórico no contiene proyecciones |
-| O2 | KR2.2 | Escenarios propios de fuerza laboral con supuestos explícitos y calibrados | 3 supuestos · calibración 2025 ≤ ±5 % | 3 · +1.51 % | ✅ | A constante · B tendencia 2015-2025 · C cierre 50 % brecha de género |
-| O2 | KR2.3 | Pérdida de población en edad de trabajar y de fuerza laboral a 2050 cuantificada con rango | rango en todos los escenarios | 15-64: -36,4 % a -27,4 % | ✅ | fuerza laboral potencial (medio): A -12,2 %; B -5,5 %; C -6,4 % |
-| O3 | KR3.1 | Riesgo demográfico-laboral medido para todas las regiones | 17 de 17 si-do | 17 de 17 · 6 en riesgo alto | ✅ | índice de 6 componentes (inferencia propia, ponderación igual) |
-| O3 | KR3.2 | Palancas de política cuantificadas (natalidad, migración, participación) | 3 de 3 palancas | 3 de 3 | ✅ | efecto a 2050: fecundidad alta +1,4 pp en Pob 15-64 · migración alta vs cero +7,7 pp · participación B vs A +6,7 pp en fuerza laboral |
+| O2 | KR2.2 | Escenarios propios de fuerza laboral con supuestos explícitos, escala ajustada y sensibilidad | 4 supuestos · diferencia sin ajuste ≤ ±5 % · sensibilidad publicada | 4 · sin ajuste +1.51 % · 8 variantes | ✅ | A constante · B tendencia 2015-2025 · C convergencia OCDE · D cierre 50 % brecha de género; el factor de cobertura EAPS lleva 2025 a la PEA observada (ajuste de escala, no validación) |
+| O2 | KR2.3 | Pérdida de población en edad de trabajar y de fuerza laboral a 2050 cuantificada con rango | rango en todos los escenarios | 15-64: -36,4 % a -27,4 % | ✅ | fuerza laboral potencial (medio): A -11,7 %; B -4,9 %; C -11,8 %; D -5,7 % |
+| O3 | KR3.1 | Riesgo demográfico-laboral medido para todas las regiones | 17 de 17 si-do | 17 de 17 · 6 en riesgo alto | ✅ | índice de 6 componentes (inferencia propia, ponderación igual); top 5 en los 7 esquemas de sensibilidad: Busan, Gyeongsangbuk-do |
+| O3 | KR3.2 | Palancas de política cuantificadas (natalidad, migración, participación, brecha de género) | 4 de 4 palancas | 4 de 4 | ✅ | efecto a 2050: fecundidad alta +1,4 pp en Pob 15-64 · migración alta vs cero +7,7 pp · participación B vs A +6,8 pp · brecha de género D vs A +6,0 pp en fuerza laboral |
 | O3 | KR3.3 | Tablero de Power BI que responde las 10 preguntas de negocio | 10 de 10 preguntas | 10 de 10 · 8 páginas | ✅ | ../powerbi/ETL_Corea_Grupo6.pbix (portada, natalidad, envejecimiento, fuerza laboral, regiones, OCDE, calidad) |
 | O4 | KR4.1 | Registros válidos tras las reglas de calidad | ≥ 98.0 % | 99.96 % | ✅ | registros que pasan todas las reglas / evaluados |
 | O4 | KR4.2 | Rechazos con motivo trazado | ≤ 2.0 % y 100 % trazados | 0.04 % · 100 % | ✅ | reemplaza el KPI «0 % inconsistencias» (retroalimentación) |
@@ -38,7 +38,7 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | KPI-08 | Fuerza laboral | Índice de reemplazo laboral | P15-24 / P55-64 × 100 | 58 | jóvenes por 100 próximos a retiro | 2025 | 100 (reemplazo completo) | Crítico | proyeccion_oficial |
 | KPI-09 | Fuerza laboral | Tasa de participación laboral (15+) | PEA / P15+ × 100 | 64,7 | % | 2025 | OCDE 60,6 (2025, modelado OIT) | Normal | observado |
 | KPI-10 | Fuerza laboral | Brecha de género en participación | TP hombres − TP mujeres | 15,8 | puntos porcentuales | 2025 | ≤ 10 pp | Alerta | calculado |
-| KPI-11 | Fuerza laboral | Variación de la fuerza laboral potencial a 2050 | Σ P_proy × TP_supuesta; (2050/2025 − 1) × 100 | -12,2 | % | 2050 | 0 % (sin pérdida) | Crítico | escenario_propio |
+| KPI-11 | Fuerza laboral | Variación de la fuerza laboral potencial a 2050 | Σ P_proy × TP_supuesta; (2050/2025 − 1) × 100 | -11,7 | % | 2050 | 0 % (sin pérdida) | Crítico | escenario_propio |
 | KPI-12 | Territorio | Si-do en riesgo demográfico-laboral alto | nº de si-do en el tercil superior del índice | 6 | de 17 si-do | 2025 | — | Alerta | inferencia_propia |
 | KPI-13 | Contexto | Población extranjera residente | extranjeros / población censada × 100 | 4,1 | % | 2025 | — | Contexto | calculado |
 | KPI-14 | Contexto | PIB por hora trabajada | publicado por la OCDE | 53,4 | USD PPA constantes | 2025 | — | Contexto | observado |
@@ -77,6 +77,7 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | OECD | productividad | exito | 208 |  |
 | OECD | fuerza_laboral | exito | 4282 |  |
 | OECD | fecundidad | exito | 1381 |  |
+| OECD | participacion_edad_sexo | exito | 612 |  |
 | UNWPP | poblacion_edad_sexo | omitido |  | UNWPP_API_TOKEN no está definido en .env (token gratuito en https://population.un.org/dataportalapi/token/index.html) |
 
 ## 3. Calidad por dataset (reglas de aceptación)
@@ -88,6 +89,7 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | OECD/fuerza_laboral/OCUPADOS | 181 | 181 | 0 | 100.00 | 0.00 | 100.00 |
 | OECD/fuerza_laboral/POB_ACTIVA | 181 | 181 | 0 | 100.00 | 0.00 | 100.00 |
 | OECD/fuerza_laboral/TASA_DESEMPLEO | 181 | 181 | 0 | 100.00 | 0.00 | 100.00 |
+| OECD/participacion_edad_sexo/TASA_PARTICIPACION | 84 | 84 | 0 | 100.00 | 0.00 | 100.00 |
 | OECD/productividad/PIB_HORA | 182 | 182 | 0 | 100.00 | 0.00 | 100.00 |
 | WB/SL.GDP.PCAP.EM.KD | 234 | 234 | 0 | 100.00 | 0.00 | 100.00 |
 | WB/SL.TLF.CACT.ZS | 234 | 234 | 0 | 100.00 | 0.00 | 100.00 |
@@ -179,7 +181,9 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | conciliacion | TFR vs OECD | 25 | 0 | PASA | dif. máx 0.00 %; mediana 0.00 % |
 | conciliacion | TFR vs WB | 25 | 0 | PASA | dif. máx 0.00 %; mediana 0.00 % |
 | gold.fact_indicador_proyeccion | escenario_y_edicion_identificados | 188160 | 0 | PASA | KR3: 100 % de registros de proyección con edición y escenario |
-| gold.fact_fuerza_laboral_escenario | calibracion_anio_base | 1 | 0 | PASA | modelo 2025 = 30,046,905 vs PEA observada EAPS 2025 = 29,599,000 (dif. +1.51 %); diferencia por universo (población total vs civil no institucional) |
+| gold.fact_fuerza_laboral_escenario | ajuste_cobertura_eaps | 1 | 0 | PASA | PEA observada EAPS 2025 = 29,599,000; modelo sin ajuste 30,046,905 (dif. +1.51 %); con factor de cobertura 29,606,821 (dif. +0.03 %): la diferencia sin ajuste es de universo (población total vs civil no institucional), no un error del modelo |
+| gold.fact_fuerza_laboral_escenario | supuesto_D_no_baja_tasas | 17400 | 0 | PASA | cerrar la brecha de género nunca reduce una tasa de participación |
+| gold.fact_riesgo_sensibilidad | ranking_robusto | 7 | 0 | PASA | si-do en el top 5 en todos los esquemas: Busan, Gyeongsangbuk-do |
 | gold.formulas | DEP_JUVENIL vs proyeccion_resumen | 51 | 0 | PASA | 51 años; dif. máx 0.372 %; mediana 0.182 % |
 | gold.formulas | DEP_TOTAL vs proyeccion_resumen | 51 | 0 | PASA | 51 años; dif. máx 0.102 %; mediana 0.035 % |
 | gold.formulas | DEP_VEJEZ vs WB/SP.POP.DPND.OL | 26 | 1 | FALLA | 26 años; dif. máx 3.527 %; mediana 1.201 % |
@@ -341,6 +345,8 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | silver | WB/SP.DYN.LE00.IN | reglas de aceptación | 225 | 225 | 0 | 0 rechazados (0.00 %) |
 | silver | WB/SL.GDP.PCAP.EM.KD | descartar años sin dato publicado | 234 | 234 | 0 | la API devuelve null en años no publicados |
 | silver | WB/SL.GDP.PCAP.EM.KD | reglas de aceptación | 234 | 234 | 0 | 0 rechazados (0.00 %) |
+| silver | OECD/participacion_edad_sexo/TASA_PARTICIPACION | filtro de la serie relevante del dataflow | 612 | 84 | -528 |  |
+| silver | OECD/participacion_edad_sexo/TASA_PARTICIPACION | reglas de aceptación | 84 | 84 | 0 | 0 rechazados (0.00 %) |
 | silver | OECD/productividad/PIB_HORA | filtro de la serie relevante del dataflow | 208 | 182 | -26 |  |
 | silver | OECD/productividad/PIB_HORA | reglas de aceptación | 182 | 182 | 0 | 0 rechazados (0.00 %) |
 | silver | OECD/fuerza_laboral/POB_ACTIVA | filtro de la serie relevante del dataflow | 4282 | 181 | -4101 |  |
@@ -357,4 +363,4 @@ Generado automáticamente por `main.py` · ejecución `20261005_225217_d8e876` �
 | silver | fact_proyeccion | integración de proyecciones oficiales (sin modificar valores) | 111720 | 111720 | 0 | el año base 2022 queda sólo en el histórico (tipo_dato = estimado) |
 | gold | fact_indicador_historico | silver + derivados + agregado CNSJ | 57054 | 81087 | 24033 | 24033 filas calculadas |
 | gold | fact_indicador_proyeccion | proyección + agregados + indicadores por escenario | 111720 | 188160 | 76440 |  |
-| gold | fact_fuerza_laboral_escenario | población proyectada × tasas supuestas (A, B, C) | 17400 | 52200 | 34800 |  |
+| gold | fact_fuerza_laboral_escenario | población proyectada × cobertura EAPS × tasas supuestas (A, B, C, D) | 17400 | 69600 | 52200 |  |

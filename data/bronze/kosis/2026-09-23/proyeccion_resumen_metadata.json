@@ -12,7 +12,7 @@
     "lector": "csv_ancho"
   },
   "fecha_extraccion": "2026-09-23",
-  "fecha_ingesta": "2026-10-05T22:52:20-05:00",
+  "fecha_ingesta": "2026-10-06T20:01:28-05:00",
   "archivo_crudo": "proyeccion_nacional_resumen_medio.csv",
   "sha256_crudo": "5910487c68262be3def0e169f32dab4122427c3383f7f7df0f0939503dddfcaf",
   "version": "5910487c6826",

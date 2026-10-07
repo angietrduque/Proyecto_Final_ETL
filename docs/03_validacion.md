@@ -8,9 +8,10 @@
 | Tablas Gold | parquet + carga SQL con PK/FK y `PRAGMA foreign_keys=ON` | ✅ 20 tablas Gold; 0 violaciones de claves foráneas (`notebooks/04`) |
 | KPIs calculables | `data/gold/kpi_okr.csv` | ✅ 13/13 resultados clave cumplen; 14 KPIs de negocio calculados |
 | Fórmulas correctas | indicadores derivados vs KOSTAT DT_1BPA002 | ✅ diferencia máxima 0,37 % (51 años, 6 indicadores) |
-| Escenarios propios | calibración del modelo vs PEA observada 2025 | ✅ +1,51 % |
+| Escenarios propios | ajuste de cobertura EAPS y sensibilidad | ✅ sin ajuste +1,51 % vs PEA 2025; con el factor, +0,03 %; 8 variantes de parámetros |
 | Retroalimentación atendida | `docs/retroalimentacion_trazabilidad.md` + prueba `test_gold_separa_observado_de_proyectado` | ✅ 7 comentarios + 2 prioridades |
-| Pruebas automatizadas | `pytest -q` | ✅ 25 pruebas pasan |
+| Pruebas automatizadas | `pytest -q` | ✅ 31 pruebas pasan |
+| Ejecución sin internet | `python main.py --sin-api` | ✅ usa la última versión de World Bank y OECD versionada en Bronze |
 | Notebooks | `python notebooks/construir_notebooks.py` (ejecución completa con salidas) | ✅ 4 notebooks ejecutados sin errores |
 | Presentación | validador OOXML + exportación con PowerPoint | ✅ 19 diapositivas con vínculos internos, guion 15:00 min (`../presentacion`) |
 

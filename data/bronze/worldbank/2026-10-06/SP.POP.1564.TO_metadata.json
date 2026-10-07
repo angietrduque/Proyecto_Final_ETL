@@ -1,0 +1,33 @@
+{
+  "fuente": "WB",
+  "dataset": "SP.POP.1564.TO",
+  "tabla_fuente": "SP.POP.1564.TO",
+  "tbl_id": null,
+  "rol": "contraste_y_comparacion",
+  "uso": null,
+  "metodo": "api",
+  "params": {
+    "url": "https://api.worldbank.org/v2/country/KOR;JPN;USA;DEU;ITA;ESP;FRA;CHN;OED/indicator/SP.POP.1564.TO",
+    "format": "json",
+    "date": "2000:2025",
+    "per_page": 20000
+  },
+  "fecha_extraccion": "2026-10-06",
+  "fecha_ingesta": "2026-10-06T20:02:06-05:00",
+  "archivo_crudo": "SP.POP.1564.TO.json",
+  "sha256_crudo": "686374fdd84674ad84bcb9b1465a11d919b587043cdbfd5068dc6c91e00b42ab",
+  "version": "686374fdd846",
+  "filas": 234,
+  "columnas": 8,
+  "encabezados": [
+    "indicator_id",
+    "indicator",
+    "countryiso3code",
+    "country",
+    "date",
+    "value",
+    "obs_status",
+    "lastupdated"
+  ],
+  "metadata_declarada_por_archivo": {}
+}

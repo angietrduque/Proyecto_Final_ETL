@@ -162,11 +162,12 @@ def kpis_negocio(gold: dict) -> pd.DataFrame:
       f"hombres {th:.1f} % vs mujeres {tm:.1f} %: principal palanca de participación".replace(".", ","))
     v = (flp.loc[("A_constante", 2050)] / flp.loc[("A_constante", 2025)] - 1) * 100
     vb = (flp.loc[("B_tendencia", 2050)] / flp.loc[("B_tendencia", 2025)] - 1) * 100
-    vc = (flp.loc[("C_brecha_genero", 2050)] / flp.loc[("C_brecha_genero", 2025)] - 1) * 100
+    vc = (flp.loc[("C_convergencia_ocde", 2050)] / flp.loc[("C_convergencia_ocde", 2025)] - 1) * 100
+    vd = (flp.loc[("D_brecha_genero", 2050)] / flp.loc[("D_brecha_genero", 2025)] - 1) * 100
     k("KPI-11", "Fuerza laboral", "Variación de la fuerza laboral potencial a 2050", "Σ P_proy × TP_supuesta; (2050/2025 − 1) × 100",
       "KOSTAT + EAPS (escenario propio)", "escenario_propio", 2050, v, "%", "0 % (sin pérdida)",
       "Crítico" if v < -10 else ("Alerta" if v < 0 else "Normal"),
-      f"A {v:.1f} % · B {vb:.1f} % · C {vc:.1f} % (no es pronóstico)".replace(".", ","))
+      f"A {v:.1f} % · B {vb:.1f} % · C {vc:.1f} % · D {vd:.1f} % (no es pronóstico)".replace(".", ","))
     alto = int((rg.nivel_riesgo == "Alto").sum())
     top = ", ".join(rg.sort_values("ranking_riesgo").merge(gold["dim_territorio"][["cod_territorio", "nombre_es"]])
                     .nombre_es.head(3))
@@ -232,12 +233,16 @@ def okr(cal: pd.DataFrame, comp: pd.DataFrame, log_hist: pd.DataFrame, validacio
     kr("O2", "KR2.1", "Escenarios oficiales KOSTAT integrados sin modificar y separados del histórico",
        "100 % de registros con escenario y edición", f"{esc} escenarios · {pid:.0f} %", pid == 100,
        "2023-2072 nacional y 2023-2052 provincial; el histórico no contiene proyecciones", "fact_indicador_proyeccion")
-    cal_v = validaciones[validaciones.regla == "calibracion_anio_base"]
+    cal_v = validaciones[validaciones.regla == "ajuste_cobertura_eaps"]
     cal_txt = cal_v.detalle.iloc[-1].split("(dif. ")[1].split(")")[0] if len(cal_v) else "s. d."
-    kr("O2", "KR2.2", "Escenarios propios de fuerza laboral con supuestos explícitos y calibrados",
-       "3 supuestos · calibración 2025 ≤ ±5 %", f"{fl.cod_supuesto.nunique()} · {cal_txt}",
-       fl.cod_supuesto.nunique() == 3 and (cal_v.resultado == "PASA").all(),
-       "A constante · B tendencia 2015-2025 · C cierre 50 % brecha de género", "fact_fuerza_laboral_escenario")
+    sens = gold.get("fact_escenarios_sensibilidad")
+    n_var = int((~sens.es_base).sum()) if sens is not None else 0
+    kr("O2", "KR2.2", "Escenarios propios de fuerza laboral con supuestos explícitos, escala ajustada y sensibilidad",
+       "4 supuestos · diferencia sin ajuste ≤ ±5 % · sensibilidad publicada",
+       f"{fl.cod_supuesto.nunique()} · sin ajuste {cal_txt} · {n_var} variantes",
+       fl.cod_supuesto.nunique() == 4 and (cal_v.resultado == "PASA").all() and n_var > 0,
+       "A constante · B tendencia 2015-2025 · C convergencia OCDE · D cierre 50 % brecha de género; el factor de "
+       "cobertura EAPS lleva 2025 a la PEA observada (ajuste de escala, no validación)", "fact_fuerza_laboral_escenario")
     escs = sorted(p[p.edicion_proyeccion == "KOSTAT 2022-2072"].cod_escenario.unique())
     var = {e: (pv("POBLACION", 2050, e, "15-64") / pv("POBLACION", 2025, e, "15-64") - 1) * 100 for e in escs}
     flp = fl[fl.cod_escenario == "medio"].groupby(["cod_supuesto", "anio"]).fuerza_laboral_potencial.sum()
@@ -247,17 +252,27 @@ def okr(cal: pd.DataFrame, comp: pd.DataFrame, log_hist: pd.DataFrame, validacio
        len(var) == esc, "fuerza laboral potencial (medio): " + "; ".join(f"{s[0]} {x:.1f} %" for s, x in vfl.items()).replace(".", ","),
        "fact_indicador_proyeccion")
     # ---------------- O3 decisión
+    rs = gold.get("fact_riesgo_sensibilidad")
+    robustez = ""
+    if rs is not None and len(rs):
+        n_esq = rs.esquema.nunique()
+        top = rs[rs.en_top5].groupby("cod_territorio").esquema.nunique().sort_values(ascending=False)
+        nom = dict(zip(gold["dim_territorio"].cod_territorio, gold["dim_territorio"].nombre_es))
+        robustez = "; top 5 en los " + str(n_esq) + " esquemas de sensibilidad: " + \
+                   (", ".join(nom[c] for c in top[top == n_esq].index) or "ninguno")
     kr("O3", "KR3.1", "Riesgo demográfico-laboral medido para todas las regiones", "17 de 17 si-do",
        f"{rg.indice_riesgo.notna().sum()} de 17 · {int((rg.nivel_riesgo == 'Alto').sum())} en riesgo alto",
-       rg.indice_riesgo.notna().sum() == 17, "índice de 6 componentes (inferencia propia, ponderación igual)",
-       "fact_riesgo_regional")
+       rg.indice_riesgo.notna().sum() == 17, "índice de 6 componentes (inferencia propia, ponderación igual)" + robustez,
+       "fact_riesgo_regional / fact_riesgo_sensibilidad")
     pal = {"natalidad": var.get("fecundidad_alta", np.nan) - var["medio"],
            "migración": var.get("migracion_alta", np.nan) - var.get("migracion_cero", np.nan),
-           "participación": vfl.get("B_tendencia", np.nan) - vfl.get("A_constante", np.nan)}
-    kr("O3", "KR3.2", "Palancas de política cuantificadas (natalidad, migración, participación)", "3 de 3 palancas",
-       f"{sum(pd.notna(v) for v in pal.values())} de 3", all(pd.notna(v) for v in pal.values()),
+           "participación": vfl.get("B_tendencia", np.nan) - vfl.get("A_constante", np.nan),
+           "brecha": vfl.get("D_brecha_genero", np.nan) - vfl.get("A_constante", np.nan)}
+    kr("O3", "KR3.2", "Palancas de política cuantificadas (natalidad, migración, participación, brecha de género)",
+       "4 de 4 palancas", f"{sum(pd.notna(v) for v in pal.values())} de 4", all(pd.notna(v) for v in pal.values()),
        f"efecto a 2050: fecundidad alta +{pal['natalidad']:.1f} pp en Pob 15-64 · migración alta vs cero "
-       f"+{pal['migración']:.1f} pp · participación B vs A +{pal['participación']:.1f} pp en fuerza laboral".replace(".", ","),
+       f"+{pal['migración']:.1f} pp · participación B vs A +{pal['participación']:.1f} pp · brecha de género D vs A "
+       f"+{pal['brecha']:.1f} pp en fuerza laboral".replace(".", ","),
        "fact_indicador_proyeccion / fact_fuerza_laboral_escenario")
     kr("O3", "KR3.3", "Tablero de Power BI que responde las 10 preguntas de negocio", "10 de 10 preguntas",
        "10 de 10 · 8 páginas", True, "../powerbi/ETL_Corea_Grupo6.pbix (portada, natalidad, envejecimiento, fuerza laboral, regiones, "
